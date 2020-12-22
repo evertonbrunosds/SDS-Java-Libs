@@ -31,7 +31,7 @@ import sds.three.AVL.Leaf;
  * @author Everton Bruno Silva dos Santos.
  * @param <K> Refere-se ao tipo de chave usada.
  * @param <V> Refere-se ao tipo de valor usado.
- * @version 1.0
+ * @version 1.1
  */
 public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     /**
@@ -111,15 +111,13 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
         if (node == null) {
             return new Node(key, value);
         }
-        switch (comparator.compare(node.key, key)) {
-            case Comparator.Result.BIGGER:
-                node.left = put(key, value, node.left);
-                break;
-            case Comparator.Result.SMALLER:
-                node.right = put(key, value, node.right);
-                break;
-            default:
-                throw new KeyUsedException("Key used.");
+        final int result = comparator.compare(node.key, key);
+        if (result > 0) {
+            node.left = put(key, value, node.left);
+        } else if (result < 0) {
+            node.right = put(key, value, node.right);
+        } else {
+            throw new KeyUsedException("Key used.");
         }
         return adjustHeight(node);
     }
@@ -145,13 +143,13 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
         if (node == null) {
             throw new ValueNotFoundException("Value not found.");
         }
-        switch (comparator.compare(node.key, key)) {
-            case Comparator.Result.BIGGER:
-                return find(key, node.left);
-            case Comparator.Result.SMALLER:
-                return find(key, node.right);
-            default:
-                return node.value;
+        final int result = comparator.compare(node.key, key);
+        if (result > 0) {
+            return find(key, node.left);
+        } else if (result < 0) {
+            return find(key, node.right);
+        } else {
+            return node.value;
         }
     }
 
@@ -176,34 +174,29 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
         if (node == null) {
             throw new ValueNotFoundException("Value not found.");
         }
-        switch (comparator.compare(node.key, key)) {
-            case Comparator.Result.BIGGER:
-                node.left = remove(key, node.left);
-                break;
-            case Comparator.Result.SMALLER:
-                node.right = remove(key, node.right);
-                break;
-            default:
-                if (node.isSubThree()) {
-                    Node tmpNode = node.left;
-                    while (node.right != null) {
-                        tmpNode = tmpNode.right;
-                    }
-                    final K tmpKey = tmpNode.key;
-                    final V tmpValue = tmpNode.value;
-                    tmpNode.key = node.key;
-                    tmpNode.value = node.value;
-                    node.key = tmpKey;
-                    node.value = tmpValue;
-                    node.left = remove(key, node.left);
-                    break;
-                } else if (node.leftIsNotNull()) {
-                    return node.left;
-                } else if (node.rightIsNotNull()) {
-                    return node.right;
-                } else {
-                    return null;
-                }
+        final int result = comparator.compare(node.key, key);
+        if (result > 0) {
+            node.left = remove(key, node.left);
+        } else if (result < 0) {
+            node.right = remove(key, node.right);
+        } else if (node.isSubThree()) {
+            Node tmpNode = node.left;
+            while (node.right != null) {
+                tmpNode = tmpNode.right;
+            }
+            final K tmpKey = tmpNode.key;
+            final V tmpValue = tmpNode.value;
+            tmpNode.key = node.key;
+            tmpNode.value = node.value;
+            node.key = tmpKey;
+            node.value = tmpValue;
+            node.left = remove(key, node.left);
+        } else if (node.leftIsNotNull()) {
+            return node.left;
+        } else if (node.rightIsNotNull()) {
+            return node.right;
+        } else {
+            return null;
         }
         return adjustHeight(node);
     }
