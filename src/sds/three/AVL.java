@@ -160,7 +160,7 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
      */
     public void remove(final K key) throws ValueNotFoundException {
         root = remove(key, root);
-        size++;
+        size--;
     }
 
     /**
