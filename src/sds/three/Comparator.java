@@ -25,7 +25,7 @@ import java.io.Serializable;
  * Interface responsável por fornecer a assinatura do métodos de um comparador.
  * @author Everton Bruno Silva dos Santos.
  * @param <V> Refere-se ao tipo de valor comparável.
- * @version 1.0
+ * @version 1.1
  */
 @FunctionalInterface
 public interface Comparator<V> extends Serializable {
@@ -37,25 +37,5 @@ public interface Comparator<V> extends Serializable {
      * @return Retorna o resultado da comparação.
      */
     int compare(final V x, final V y);
-
-    /**
-     * Classe responsável por fornecer valores de tradução de resultados de comparações.
-     * @author Everton Bruno Silva dos Santos.
-     * @version 1.0
-     */
-    public final class Result {
-        /**
-         * Refere-se ao resultado determinístico de superioridade entre valores.
-         */
-        public static final int BIGGER = 1;
-        /**
-         * Refere-se ao resultado determinístico de igualdade entre valores.
-         */
-        public static final int EQUAL = 0;
-        /**
-         * Refere-se ao resultado determinístico de inferioridade entre valores.
-         */
-        public static final int SMALLER = -1;
-    }
 
 }
