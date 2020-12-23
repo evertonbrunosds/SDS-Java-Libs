@@ -31,7 +31,7 @@ import sds.three.AVL.Leaf;
  * @author Everton Bruno Silva dos Santos.
  * @param <K> Refere-se ao tipo de chave usada.
  * @param <V> Refere-se ao tipo de valor usado.
- * @version 1.1
+ * @version 1.2
  */
 public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     /**
@@ -476,7 +476,7 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
          */
         @Override
         public T next() {
-            return elements.removeFirst();
+            return !elements.isEmpty() ? elements.removeFirst() : null;
         }
 
     }
