@@ -31,7 +31,7 @@ import sds.three.AVL.Leaf;
  * @author Everton Bruno Silva dos Santos.
  * @param <K> Refere-se ao tipo de chave usada.
  * @param <V> Refere-se ao tipo de valor usado.
- * @version 1.2
+ * @version 1.3
  */
 public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     /**
@@ -104,7 +104,7 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
      * @param key   Refere-se a chave do dito valor.
      * @param value Refere-se ao dito valor.
      * @param node  Refere-se ao elo atual da recursão.
-     * @return Retorna árvore reconstruida com novo valor incluido.
+     * @return Retorna árvore reconstruída com novo valor incluído.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
     private Node put(final K key, final V value, final Node node) throws KeyUsedException {
@@ -167,7 +167,7 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
      * Método responsável por remover um valor contido na árvore recursivamente.
      * @param key  Refere-se a chave de acesso ao dito valor.
      * @param node Refere-se ao elo atual da recursão.
-     * @return Retorna árvore reconstruida com o dito valor ausente.
+     * @return Retorna árvore reconstruída com o dito valor ausente.
      * @throws ValueNotFoundException Exceção lançada no caso do valor não ser encontrado.
      */
     private Node remove(final K key, final Node node) throws ValueNotFoundException {
@@ -309,7 +309,7 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     /**
      * Método responsável por ajustar a altura de determinado elo da árvore.
      * @param node Refere-se ao dito elo a ter sua altura ajustada.
-     * @return Retorna elo raiz da árvore reconstruida com altura ajustada.
+     * @return Retorna elo raiz da árvore reconstruída com altura ajustada.
      */
     private Node adjustHeight(final Node node) {
         updateBalance(node);
