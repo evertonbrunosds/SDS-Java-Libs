@@ -19,6 +19,8 @@
  */
 package sds.three;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -35,8 +37,10 @@ import java.util.Map.Entry;
  */
 public class AVLTest {
     private AVL<Integer, String> avl;
+    private final String fileName;
 
     public AVLTest() {
+        fileName = "FileTest";
     }
 
     @BeforeClass
@@ -54,6 +58,10 @@ public class AVLTest {
 
     @After
     public void tearDown() {
+        final File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     @Test
@@ -164,6 +172,21 @@ public class AVLTest {
     @Test
     public void verificarSeContemChaveEmAVLRecemCriada() {
         assertFalse(avl.containsKey(0));
+    }
+
+    @Test
+    public void gravarEmArquivoAVLRecemCriada() throws IOException {
+        avl.saveToFile(fileName);
+    }
+
+    @Test
+    public void carregarDeArquivoAVLRecemCriada() throws IOException, ClassNotFoundException, ClassCastException {
+        final AVL<Integer, String> avlTmp = new AVL<>(Integer::compareTo);
+        avlTmp.put(1997, "Everton Bruno Silva dos Santos");
+        avlTmp.saveToFile(fileName);
+        avlTmp.clear();
+        avl.loadFromFile(fileName);
+        assertEquals("Everton Bruno Silva dos Santos", avl.find(1997).getValue());
     }
 
     @Test
@@ -356,6 +379,36 @@ public class AVLTest {
         avl.put(1, "A");
         assertTrue(avl.containsKey(1));
         assertFalse(avl.containsKey(2));
+    }
+
+    @Test
+    public void gravarEmArquivoAVLAposInserir() throws IOException, ClassNotFoundException {
+        avl.put(1997, "Everton Bruno Silva dos Santos");
+        avl.saveToFile(fileName);
+        avl.clear();
+        avl.loadFromFile(fileName);
+        assertEquals("Everton Bruno Silva dos Santos", avl.find(1997).getValue());
+    }
+
+    @Test
+    public void carregarDeArquivoAVLAposInserir() throws IOException, ClassNotFoundException, ClassCastException {
+        final AVL<Integer, String> avlTmp = new AVL<>(Integer::compareTo);
+        avlTmp.saveToFile(fileName);
+        avl.put(1997, "Everton Bruno Silva dos Santos");
+        avl.loadFromFile(fileName);
+        assertTrue(avl.isEmpty());
+    }
+    
+    @Test
+    public void carregarDeArquivoInexistenteEmAVL() {
+        try {
+            avl.loadFromFile("file not exists");
+            fail();
+        } catch (final IOException ex) {
+            assertNotNull(ex);
+        } catch (final ClassNotFoundException | ClassCastException ex) {
+            fail();
+        }
     }
 
 }
