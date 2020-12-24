@@ -93,8 +93,8 @@ public class AVLTest {
         try {
             avl.find(2020);
             fail();
-        } catch (final EntryNotFoundException valueNotFoundException) {
-            assertEquals("Value not found.", valueNotFoundException.getMessage());
+        } catch (final EntryNotFoundException entryNotFoundException) {
+            assertEquals("Entry not found.", entryNotFoundException.getMessage());
         }
     }
 
@@ -103,8 +103,8 @@ public class AVLTest {
         try {
             avl.remove(2020);
             fail();
-        } catch (final EntryNotFoundException valueNotFoundException) {
-            assertEquals("Value not found.", valueNotFoundException.getMessage());
+        } catch (final EntryNotFoundException entryNotFoundException) {
+            assertEquals("Entry not found.", entryNotFoundException.getMessage());
         } finally {
             assertSame(0, avl.size());
             assertTrue(avl.isEmpty());
@@ -131,6 +131,34 @@ public class AVLTest {
             fail();
         }
         assertTrue(true);
+    }
+
+    @Test
+    public void alterarValorDeEntradaDeAVLRecemCriada() {
+        try {
+            avl.setValue(20, "B");
+            fail();
+        } catch (final EntryNotFoundException ex) {
+            assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void alterarChaveDeEntradaDeAVLRecemCriada() {
+        try {
+            avl.setKey(20, 25);
+            fail();
+        } catch (final EntryNotFoundException ex) {
+            assertNotNull(ex);
+        }
+    }
+
+    @Test
+    public void duplicarAVLRecemCriada() {
+        final AVL<Integer, String> avlDuplicated = avl.duplicate();
+        avl.put(1, "A");
+        assertSame(1, avl.size());
+        assertSame(0, avlDuplicated.size());
     }
 
     @Test
@@ -246,17 +274,76 @@ public class AVLTest {
     }
 
     @Test
-    public void alterarValorDeFolha() {
+    public void alterarValorDeEntrada() {
         avl.put(20, "A");
         assertEquals("A", avl.iterator().next().setValue("B"));
         assertEquals("B", avl.iterator().next().getValue());
         assertEquals("B", avl.find(20).getValue());
-        for(final Entry<Integer, String> entry : avl) {
+        for (final Entry<Integer, String> entry : avl) {
             assertEquals("B", entry.getValue());
         }
         avl.forEach(entry -> {
             assertEquals("B", entry.getValue());
         });
+    }
+
+    @Test
+    public void alterarValorDeEntradaDeAVLAposInserir() {
+        avl.put(20, "A");
+        avl.setValue(20, "B");
+        assertEquals("B", avl.iterator().next().getValue());
+        assertEquals("B", avl.find(20).getValue());
+        for (final Entry<Integer, String> entry : avl) {
+            assertEquals("B", entry.getValue());
+        }
+        avl.forEach(entry -> {
+            assertEquals("B", entry.getValue());
+        });
+    }
+
+    @Test
+    public void alterarChaveDeEntradaDeAVLAposInserir() {
+        avl.put(20, "A");
+        avl.setKey(20, 237);
+        assertEquals("A", avl.find(237).getValue());
+        for (final Entry<Integer, String> entry : avl) {
+            assertEquals(new Integer(237), entry.getKey());
+        }
+        avl.forEach(entry -> {
+            assertEquals(new Integer(237), entry.getKey());
+        });
+    }
+
+    @Test
+    public void alterarChaveDeEntradaComMesmaChaveDeAVLAposInserir() {
+        avl.put(20, "A");
+        avl.put(23, "C");
+        try {
+            avl.setKey(20, 23);
+            fail();
+        } catch (final KeyUsedException ex) {
+            assertNotNull(ex);
+        }
+        assertEquals("A", avl.find(20).getValue());
+        assertEquals("C", avl.find(23).getValue());
+    }
+
+    @Test
+    public void duplicarAVLAposInserir() {
+        avl.put(1, "A");
+        avl.put(2, "B");
+        avl.put(3, "C");
+        final AVL<Integer, String> avlDuplicated = avl.duplicate();
+        avlDuplicated.setValue(2, "D");
+        avlDuplicated.remove(3);
+        avlDuplicated.setKey(1, 0);
+        assertSame(3, avl.size());
+        assertEquals("A", avl.find(1).getValue());
+        assertEquals("B", avl.find(2).getValue());
+        assertEquals("C", avl.find(3).getValue());
+        assertSame(2, avlDuplicated.size());
+        assertEquals("A", avlDuplicated.find(0).getValue());
+        assertEquals("D", avlDuplicated.find(2).getValue());
     }
 
 }
