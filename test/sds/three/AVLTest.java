@@ -26,12 +26,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import sds.three.AVL.Leaf;
+import java.util.Map.Entry;
 
 /**
  * Classe responsável por efetuar testes na árvore AVL.
  * @author Everton Bruno Silva dos Santos.
- * @version 1.0
+ * @version 1.4
  */
 public class AVLTest {
     private AVL<Integer, String> avl;
@@ -78,13 +78,13 @@ public class AVLTest {
         avl.put(2020, "A");
         assertSame(1, avl.size());
         assertFalse(avl.isEmpty());
-        assertEquals("A", avl.find(2020));
+        assertEquals("A", avl.find(2020).getValue());
         assertEquals("A", avl.iterator().next().getValue());
-        for (final Leaf<Integer, String> leaf : avl) {
-            assertEquals("A", leaf.getValue());
+        for (final Entry<Integer, String> entry : avl) {
+            assertEquals("A", entry.getValue());
         }
-        avl.forEach(leaf -> {
-            assertEquals("A", leaf.getValue());
+        avl.forEach(entry -> {
+            assertEquals("A", entry.getValue());
         });
     }
 
@@ -93,7 +93,7 @@ public class AVLTest {
         try {
             avl.find(2020);
             fail();
-        } catch (final ValueNotFoundException valueNotFoundException) {
+        } catch (final EntryNotFoundException valueNotFoundException) {
             assertEquals("Value not found.", valueNotFoundException.getMessage());
         }
     }
@@ -103,7 +103,7 @@ public class AVLTest {
         try {
             avl.remove(2020);
             fail();
-        } catch (final ValueNotFoundException valueNotFoundException) {
+        } catch (final EntryNotFoundException valueNotFoundException) {
             assertEquals("Value not found.", valueNotFoundException.getMessage());
         } finally {
             assertSame(0, avl.size());
@@ -119,7 +119,7 @@ public class AVLTest {
 
     @Test
     public void forEachDeAVLRecemCriada() {
-        avl.forEach(leaf -> {
+        avl.forEach(entry -> {
             fail();
         });
         assertTrue(true);
@@ -127,7 +127,7 @@ public class AVLTest {
 
     @Test
     public void forInDeAVLRecemCriada() {
-        for (final Leaf<Integer, String> leaf : avl) {
+        for (final Entry<Integer, String> entry : avl) {
             fail();
         }
         assertTrue(true);
@@ -167,15 +167,15 @@ public class AVLTest {
         avl.put(23, "B");
         assertSame(2, avl.size());
         assertFalse(avl.isEmpty());
-        assertEquals("A", avl.find(20));
-        assertEquals("B", avl.find(23));
-        final Iterator<Leaf<Integer, String>> iterator = avl.iterator();
+        assertEquals("A", avl.find(20).getValue());
+        assertEquals("B", avl.find(23).getValue());
+        final Iterator<Entry<Integer, String>> iterator = avl.iterator();
         assertEquals("A", iterator.next().getValue());
         assertEquals("B", iterator.next().getValue());
         final String[] array = new String[] { "A", "B" };
         int index = 0;
-        for (final Leaf<Integer, String> leaf : avl) {
-            assertEquals(array[index], leaf.getValue());
+        for (final Entry<Integer, String> entry : avl) {
+            assertEquals(array[index], entry.getValue());
             index++;
         }
     }
@@ -192,8 +192,8 @@ public class AVLTest {
             assertSame(1, avl.size());
             assertFalse(avl.isEmpty());
             assertEquals("A", avl.iterator().next().getValue());
-            for (final Leaf<Integer, String> leaf : avl) {
-                assertEquals("A", leaf.getValue());
+            for (final Entry<Integer, String> entry : avl) {
+                assertEquals("A", entry.getValue());
             }
         }
     }
@@ -202,8 +202,8 @@ public class AVLTest {
     public void buscarEmAVLAposInserir() {
         avl.put(20, "A");
         avl.put(23, "B");
-        assertEquals("A", avl.find(20));
-        assertEquals("B", avl.find(23));
+        assertEquals("A", avl.find(20).getValue());
+        assertEquals("B", avl.find(23).getValue());
     }
 
     @Test
@@ -213,7 +213,7 @@ public class AVLTest {
         assertSame(0, avl.size());
         assertTrue(avl.isEmpty());
         assertNull(avl.iterator().next());
-        for (final Leaf<Integer, String> leaf : avl) {
+        for (final Entry<Integer, String> entry : avl) {
             fail();
         }
         assertTrue(true);
@@ -230,19 +230,33 @@ public class AVLTest {
     @Test
     public void forEachDeAVLAposInserir() {
         avl.put(20, "A");
-        avl.forEach(leaf -> {
-            assertEquals("A", leaf.getValue());
-            assertSame(20, leaf.getKey());
+        avl.forEach(entry -> {
+            assertEquals("A", entry.getValue());
+            assertSame(20, entry.getKey());
         });
     }
 
     @Test
     public void forInDeAVLAposInserir() {
         avl.put(20, "A");
-        for (final Leaf<Integer, String> leaf : avl) {
-            assertEquals("A", leaf.getValue());
-            assertSame(20, leaf.getKey());
+        for (final Entry<Integer, String> entry : avl) {
+            assertEquals("A", entry.getValue());
+            assertSame(20, entry.getKey());
         }
+    }
+
+    @Test
+    public void alterarValorDeFolha() {
+        avl.put(20, "A");
+        assertEquals("A", avl.iterator().next().setValue("B"));
+        assertEquals("B", avl.iterator().next().getValue());
+        assertEquals("B", avl.find(20).getValue());
+        for(final Entry<Integer, String> entry : avl) {
+            assertEquals("B", entry.getValue());
+        }
+        avl.forEach(entry -> {
+            assertEquals("B", entry.getValue());
+        });
     }
 
 }
