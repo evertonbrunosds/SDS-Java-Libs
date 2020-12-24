@@ -22,7 +22,6 @@ package sds.three;
 import java.io.Serializable;
 import java.util.Map.Entry;
 import static java.lang.Math.max;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
@@ -34,7 +33,7 @@ import java.util.function.Consumer;
  * @param <V> Refere-se ao tipo de valor usado nas entradas.
  * @version 1.4
  */
-public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable, Duplicable<AVL<K, V>> {
+public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable, Duplicable<AVL<K, V>>, FileStream<AVL<K, V>> {
     /**
      * Refere-se ao número de série da árvore AVL.
      */
@@ -42,7 +41,7 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable, Duplicabl
     /**
      * Refere-se ao objeto comparador de chaves.
      */
-    private final Comparator<K> comparator;
+    private Comparator<K> comparator;
     /**
      * Refere-se ao objeto raiz da árvore.
      */
@@ -393,6 +392,17 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable, Duplicabl
             }
         }
         return node;
+    }
+
+    /**
+     * Método responsável por alterar os dados da árvore em fluxo.
+     * @param newData Refere-se aos novos dados da árvore.
+     */
+    @Override
+    public void set(final AVL<K, V> newData) {
+        this.comparator = newData.comparator;
+        this.root = newData.root;
+        this.size = newData.size;
     }
 
     /**
