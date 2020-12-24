@@ -150,6 +150,15 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable, Duplicabl
     }
 
     /**
+     * Método responsável por indicar se determinada entrada contém dada chave.
+     * @param key Refere-se a dita chave.
+     * @return Retorna indicativo de que determinada entrada contém dada chave.
+     */
+    public boolean containsKey(final K key) {
+        return find(key, root) != null;
+    }
+
+    /**
      * Método responsável por encontrar uma entrada contida na árvore recursivamente.
      * @param key  Refere-se a chave de acesso à dita entrada.
      * @param node Refere-se ao elo atual da recursão.
