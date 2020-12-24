@@ -20,20 +20,21 @@
 package sds.three;
 
 import java.io.Serializable;
+import java.util.Map.Entry;
 import static java.lang.Math.max;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
-import sds.three.AVL.Leaf;
 
 /**
  * Classe responsável por comportar-se como árvore AVL.
  * @author Everton Bruno Silva dos Santos.
- * @param <K> Refere-se ao tipo de chave usada.
- * @param <V> Refere-se ao tipo de valor usado.
- * @version 1.3
+ * @param <K> Refere-se ao tipo de chave usada nas entradas.
+ * @param <V> Refere-se ao tipo de valor usado nas entradas.
+ * @version 1.4
  */
-public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
+public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
     /**
      * Refere-se ao número de série da árvore AVL.
      */
@@ -89,10 +90,10 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     }
 
     /**
-     * Método responsável por inserir um novo valor na árvore.
-     * @param key   Refere-se a chave do dito valor.
-     * @param value Refere-se ao dito valor.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
+     * Método responsável por inserir uma nova entrada na árvore.
+     * @param key   Refere-se a chave da dita entrada.
+     * @param value Refere-se ao valor da dita entrada.
+     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra entrada.
      */
     public void put(final K key, final V value) throws KeyUsedException {
         root = put(key, value, root);
@@ -100,12 +101,12 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     }
 
     /**
-     * Método responsável por inserir um novo valor na árvore recursivamente.
-     * @param key   Refere-se a chave do dito valor.
-     * @param value Refere-se ao dito valor.
+     * Método responsável por inserir uma nova entrada na árvore recursivamente.
+     * @param key   Refere-se a chave da dita entrada.
+     * @param value Refere-se ao valor da dita entrada.
      * @param node  Refere-se ao elo atual da recursão.
-     * @return Retorna árvore reconstruída com novo valor incluído.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
+     * @return Retorna árvore reconstruída com nova entrada incluída.
+     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra entrada.
      */
     private Node put(final K key, final V value, final Node node) throws KeyUsedException {
         if (node == null) {
@@ -123,25 +124,25 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     }
 
     /**
-     * Método responsável por encontrar um valor contido na árvore.
-     * @param key Refere-se a chave de acesso ao dito valor.
-     * @return Retorna o dito valor associado a chave.
-     * @throws ValueNotFoundException Exceção lançada no caso do valor não ser encontrado.
+     * Método responsável por encontrar uma entrada contida na árvore.
+     * @param key Refere-se a chave de acesso à dita entrada.
+     * @return Retorna a dita entrada detentora da chave.
+     * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
      */
-    public V find(final K key) throws ValueNotFoundException {
+    public Entry<K, V> find(final K key) throws EntryNotFoundException {
         return find(key, root);
     }
 
     /**
-     * Método responsável por encontrar um valor contido na árvore recursivamente.
-     * @param key  Refere-se a chave de acesso ao dito valor.
+     * Método responsável por encontrar uma entrada contida na árvore recursivamente.
+     * @param key Refere-se a chave de acesso à dita entrada.
      * @param node Refere-se ao elo atual da recursão.
-     * @return Retorna o dito valor associado a chave.
-     * @throws ValueNotFoundException Exceção lançada no caso do valor não ser encontrado.
+     * @return Retorna a dita entrada detentora da chave.
+     * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
      */
-    private V find(final K key, final Node node) throws ValueNotFoundException {
+    private Node find(final K key, final Node node) throws EntryNotFoundException {
         if (node == null) {
-            throw new ValueNotFoundException("Value not found.");
+            throw new EntryNotFoundException("Value not found.");
         }
         final int result = comparator.compare(node.key, key);
         if (result > 0) {
@@ -149,30 +150,30 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
         } else if (result < 0) {
             return find(key, node.right);
         } else {
-            return node.value;
+            return node;
         }
     }
 
     /**
-     * Método responsável por remover um valor contido na árvore.
-     * @param key Refere-se a chave de acesso ao dito valor.
-     * @throws ValueNotFoundException Exceção lançada no caso do valor não ser encontrado.
+     * Método responsável por remover uma entrada contida na árvore.
+     * @param key Refere-se a chave de acesso à dita entrada.
+     * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
      */
-    public void remove(final K key) throws ValueNotFoundException {
+    public void remove(final K key) throws EntryNotFoundException {
         root = remove(key, root);
         size--;
     }
 
     /**
-     * Método responsável por remover um valor contido na árvore recursivamente.
-     * @param key  Refere-se a chave de acesso ao dito valor.
+     * Método responsável por remover uma entrada contida na árvore recursivamente.
+     * @param key Refere-se a chave de acesso à dita entrada.
      * @param node Refere-se ao elo atual da recursão.
-     * @return Retorna árvore reconstruída com o dito valor ausente.
-     * @throws ValueNotFoundException Exceção lançada no caso do valor não ser encontrado.
+     * @return Retorna árvore reconstruída com o dita entrada ausente.
+     * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
      */
-    private Node remove(final K key, final Node node) throws ValueNotFoundException {
+    private Node remove(final K key, final Node node) throws EntryNotFoundException {
         if (node == null) {
-            throw new ValueNotFoundException("Value not found.");
+            throw new EntryNotFoundException("Value not found.");
         }
         final int result = comparator.compare(node.key, key);
         if (result > 0) {
@@ -202,37 +203,37 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     }
 
     /**
-     * Método responsável por retornar estrutura iterável de valores e chaves contidos na árvore.
-     * @return Retorna estrutura iterável de valores e chaves contidos na árvore.
+     * Método responsável por retornar estrutura iterável de entradas contidos na árvore.
+     * @return Retorna estrutura iterável de entradas contidos na árvore.
      */
     @Override
-    public Iterator<Leaf<K, V>> iterator() {
-        final MyIterator<Leaf<K, V>> myIterator = new MyIterator<>();
-        forEach(leaf -> {
-            myIterator.elements.add(leaf);
+    public Iterator<Entry<K, V>> iterator() {
+        final MyIterator<Entry<K, V>> myIterator = new MyIterator<>();
+        forEach(entry -> {
+            myIterator.elements.add(entry);
         });
         return myIterator;
     }
 
     /**
-     * Método responsável por percorrer por valores e chaves contidos na árvore.
-     * @param leaf Refere-se as folhas da árvore detentoras de valores e chaves.
+     * Método responsável por percorrer por entradas contidos na árvore.
+     * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
      */
     @Override
-    public void forEach(final Consumer<? super Leaf<K, V>> leaf) {
-        forEach(leaf, root);
+    public void forEach(final Consumer<? super Entry<K, V>> entry) {
+        forEach(entry, root);
     }
 
     /**
-     * Método responsável por percorrer por valores e chaves contidos na árvore recursivamente.
-     * @param leaf Refere-se as folhas da árvore detentoras de valores e chaves.
+     * Método responsável por percorrer por entradas contidos na árvore recursivamente.
+     * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
      * @param node Refere-se ao elo atual da recursão.
      */
-    private void forEach(final Consumer<? super Leaf<K, V>> leaf, final Node node) {
+    private void forEach(final Consumer<? super Entry<K, V>> entry, final Node node) {
         if (node != null) {
-            forEach(leaf, node.left);
-            leaf.accept(node);
-            forEach(leaf, node.right);
+            forEach(entry, node.left);
+            entry.accept(node);
+            forEach(entry, node.right);
         }
     }
 
@@ -330,34 +331,11 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
     }
 
     /**
-     * Interface responsável por fornecer as assinaturas dos métodos de uma folha.
-     * @author Everton Bruno Silva dos Santos.
-     * @param <K> Refere-se ao tipo de chave contida na folha.
-     * @param <V> Refere-se ao tipo de valor contido na folha.
-     * @version 1.0
-     */
-    public interface Leaf<K, V> extends Serializable {
-
-        /**
-         * Método responsável por retornar chave contida na folha.
-         * @return Retorna chave contida na folha.
-         */
-        K getKey();
-
-        /**
-         * Método responsável por retornar valor contido na folha.
-         * @return Retorna valor contido na folha.
-         */
-        V getValue();
-
-    }
-
-    /**
      * Classe responsável por comportar-se como elo da árvore.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
      */
-    private class Node implements Leaf<K, V> {
+    private class Node implements Entry<K, V>, Serializable {
         /**
          * Refere-se ao número de série do elo da árvore AVL.
          */
@@ -373,7 +351,7 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
         /**
          * Refere-se ao valor de balanceamento contido no elo.
          */
-        private int balancing;
+        private transient int balancing;
         /**
          * Refere-se ao elo a esquerda.
          */
@@ -434,6 +412,18 @@ public class AVL<K, V> implements Iterable<Leaf<K, V>>, Serializable {
         @Override
         public V getValue() {
             return value;
+        }
+
+        /**
+         * Método responsável por alterar valor contido no elo.
+         * @param value Refere-se ao novo valor contido no elo.
+         * @return Retorna antigo valor contido no elo.
+         */
+        @Override
+        public V setValue(final V value) {
+            final V oldValue = this.value;
+            this.value = value;
+            return oldValue;
         }
 
     }
