@@ -34,7 +34,7 @@ import java.util.function.Consumer;
  * @param <V> Refere-se ao tipo de valor usado nas entradas.
  * @version 1.4
  */
-public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
+public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable, Duplicable<AVL<K, V>> {
     /**
      * Refere-se ao número de série da árvore AVL.
      */
@@ -63,6 +63,18 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
         }
         this.comparator = comparator;
         this.size = 0;
+    }
+
+    /**
+     * Construtor responsável pelo instanciamento da árvore.
+     * @param comparator Refere-se ao objeto comparador de chaves.
+     * @param root       Refere-se ao objeto raiz da árvore.
+     * @param size       Refere-se ao tamanho da árvore.
+     */
+    private AVL(final Comparator<K> comparator, final Node root, final int size) {
+        this.comparator = comparator;
+        this.root = root;
+        this.size = size;
     }
 
     /**
@@ -130,19 +142,22 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
      * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
      */
     public Entry<K, V> find(final K key) throws EntryNotFoundException {
-        return find(key, root);
+        final Entry<K, V> entry = find(key, root);
+        if (entry == null) {
+            throw new EntryNotFoundException("Entry not found.");
+        }
+        return entry;
     }
 
     /**
      * Método responsável por encontrar uma entrada contida na árvore recursivamente.
-     * @param key Refere-se a chave de acesso à dita entrada.
+     * @param key  Refere-se a chave de acesso à dita entrada.
      * @param node Refere-se ao elo atual da recursão.
      * @return Retorna a dita entrada detentora da chave.
-     * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
      */
-    private Node find(final K key, final Node node) throws EntryNotFoundException {
+    private Node find(final K key, final Node node) {
         if (node == null) {
-            throw new EntryNotFoundException("Value not found.");
+            return null;
         }
         final int result = comparator.compare(node.key, key);
         if (result > 0) {
@@ -152,6 +167,47 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
         } else {
             return node;
         }
+    }
+
+    /**
+     * Método responsável por alterar o valor de determinada entrada na árvore.
+     * @param key   Refere-se a chave de acesso à entrada.
+     * @param value Refere-se ao novo valor da entrada.
+     * @return Retorna o antigo valor da chave.
+     * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
+     */
+    public V setValue(final K key, final V value) throws EntryNotFoundException {
+        return find(key).setValue(value);
+    }
+
+    /**
+     * Método responsável por substituir dada chave de uma entrada por outra na árvore.
+     * @param currentKey Refere-se a chave atual.
+     * @param newKey     Refere-se a nova chave.
+     * @throws KeyUsedException       Exceção lançada no caso da nova chave estar em uso por outra entrada.
+     * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
+     */
+    public void setKey(final K currentKey, final K newKey) throws KeyUsedException, EntryNotFoundException {
+        final Node node = find(currentKey, root);
+        final Node otherNode = find(newKey, root);
+        if (node == null) {
+            throw new EntryNotFoundException("Entry not found.");
+        } else if (otherNode != null && !node.equals(otherNode)) {
+            throw new KeyUsedException("Key used.");
+        } else if (!node.equals(otherNode)) {
+            remove(node.key);
+            node.key = newKey;
+            put(node.key, node.value);
+        }
+    }
+
+    /**
+     * Método responsável por duplicar a árvore.
+     * @return Retorna árvore duplicata.
+     */
+    @Override
+    public AVL<K, V> duplicate() {
+        return !isEmpty() ? new AVL<>(comparator, root.duplicate(), size) : new AVL<>(comparator);
     }
 
     /**
@@ -166,14 +222,14 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
 
     /**
      * Método responsável por remover uma entrada contida na árvore recursivamente.
-     * @param key Refere-se a chave de acesso à dita entrada.
+     * @param key  Refere-se a chave de acesso à dita entrada.
      * @param node Refere-se ao elo atual da recursão.
      * @return Retorna árvore reconstruída com o dita entrada ausente.
      * @throws EntryNotFoundException Exceção lançada no caso da entrada não ser encontrada.
      */
     private Node remove(final K key, final Node node) throws EntryNotFoundException {
         if (node == null) {
-            throw new EntryNotFoundException("Value not found.");
+            throw new EntryNotFoundException("Entry not found.");
         }
         final int result = comparator.compare(node.key, key);
         if (result > 0) {
@@ -227,7 +283,7 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
     /**
      * Método responsável por percorrer por entradas contidos na árvore recursivamente.
      * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
-     * @param node Refere-se ao elo atual da recursão.
+     * @param node  Refere-se ao elo atual da recursão.
      */
     private void forEach(final Consumer<? super Entry<K, V>> entry, final Node node) {
         if (node != null) {
@@ -335,7 +391,7 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
      */
-    private class Node implements Entry<K, V>, Serializable {
+    private class Node implements Entry<K, V>, Serializable, Duplicable<Node> {
         /**
          * Refere-se ao número de série do elo da árvore AVL.
          */
@@ -424,6 +480,22 @@ public class AVL<K, V> implements Iterable<Entry<K, V>>, Serializable {
             final V oldValue = this.value;
             this.value = value;
             return oldValue;
+        }
+
+        /**
+         * Método responsável por duplicar o elo.
+         * @return Retorna elo duplicata.
+         */
+        @Override
+        public Node duplicate() {
+            final Node node = new Node(key, value);
+            if (leftIsNotNull()) {
+                node.left = left.duplicate();
+            }
+            if (rightIsNotNull()) {
+                node.right = right.duplicate();
+            }
+            return node;
         }
 
     }
