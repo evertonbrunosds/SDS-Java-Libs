@@ -20,21 +20,21 @@
 package sds.three;
 
 /**
- * Classe responsável por comportar-se como exceção de valor não encontrado.
+ * Classe responsável por comportar-se como exceção de entrada não encontrada.
  * @author Everton Bruno Silva dos Santos.
- * @version 1.1
+ * @version 1.4
  */
-public class ValueNotFoundException extends RuntimeException {
+public class EntryNotFoundException extends RuntimeException {
     /**
-     * Refere-se ao número de série da exceção de valor não encontrado.
+     * Refere-se ao número de série da exceção de entrada não encontrada.
      */
     private static final long serialVersionUID = -2020384390486923525L;
 
     /**
-     * Construtor responsável pelo instanciamento da exceção de valor não encontrado.
-     * @param msg Refere-se a mensagem da exceção de valor não encontrado.
+     * Construtor responsável pelo instanciamento da exceção de entrada não encontrada.
+     * @param msg Refere-se a mensagem da exceção de entrada não encontrada.
      */
-    public ValueNotFoundException(final String msg) {
+    public EntryNotFoundException(final String msg) {
         super(msg);
     }
 
