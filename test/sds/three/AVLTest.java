@@ -162,6 +162,11 @@ public class AVLTest {
     }
 
     @Test
+    public void verificarSeContemChaveEmAVLRecemCriada() {
+        assertFalse(avl.containsKey(0));
+    }
+
+    @Test
     public void tamanhoDeAVLAposInserir() {
         avl.put(20, "A");
         assertSame(1, avl.size());
@@ -344,6 +349,13 @@ public class AVLTest {
         assertSame(2, avlDuplicated.size());
         assertEquals("A", avlDuplicated.find(0).getValue());
         assertEquals("D", avlDuplicated.find(2).getValue());
+    }
+
+    @Test
+    public void verificarSeContemChaveEmAVLAposInserir() {
+        avl.put(1, "A");
+        assertTrue(avl.containsKey(1));
+        assertFalse(avl.containsKey(2));
     }
 
 }
