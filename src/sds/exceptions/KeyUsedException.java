@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sds.util;
+package sds.exceptions;
 
 /**
  * Classe responsável por comportar-se como exceção de chave em uso.

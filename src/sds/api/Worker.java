@@ -22,11 +22,16 @@ package sds.api;
 import java.io.Serializable;
 
 /**
- * Interface responsável por fornecer as assinaturas de métodos de um comparador.
+ * Interface responsável por fornecer a assinatura de método de um trabalhador.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo do comparador.
- * @version 1.4
+ * @version 1.0
  */
 @FunctionalInterface
-public interface Comparator<T> extends java.util.Comparator<T>, Serializable {
+public interface Worker extends Serializable {
+
+    /**
+     * Método responsável por trabalhar.
+     */
+    void work();
+
 }

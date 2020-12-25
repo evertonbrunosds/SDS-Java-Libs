@@ -22,11 +22,19 @@ package sds.api;
 import java.io.Serializable;
 
 /**
- * Interface responsável por fornecer as assinaturas de métodos de um comparador.
+ * Interface responsável por fornecer a assinatura de método de um modificador.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo do comparador.
- * @version 1.4
+ * @param <T> Refere-se ao tipo de dados a ser modificado.
+ * @version 1.0
  */
 @FunctionalInterface
-public interface Comparator<T> extends java.util.Comparator<T>, Serializable {
+public interface Modifier<T> extends Serializable {
+
+    /**
+     * Método responsável por modificar uma entrada de dados.
+     * @param data Refere-se a dita entrada de dados.
+     * @return Retorna a dita entrada de dados modificada.
+     */
+    T modify(T data);
+
 }

@@ -17,10 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sds.three;
+package sds.util;
 
-import sds.util.EntryNotFoundException;
-import sds.util.KeyUsedException;
+import sds.exceptions.EntryNotFoundException;
+import sds.exceptions.KeyUsedException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -37,11 +37,11 @@ import java.util.Map.Entry;
  * @author Everton Bruno Silva dos Santos.
  * @version 1.4
  */
-public class AVLTest {
-    private AVL<Integer, String> avl;
+public class AVLTreeTest {
+    private AVLTree<Integer, String> avl;
     private final String fileName;
 
-    public AVLTest() {
+    public AVLTreeTest() {
         fileName = "FileTest";
     }
 
@@ -55,7 +55,7 @@ public class AVLTest {
 
     @Before
     public void setUp() {
-        avl = new AVL<>(Integer::compareTo);
+        avl = new AVLTree<>(Integer::compareTo);
     }
 
     @After
@@ -165,7 +165,7 @@ public class AVLTest {
 
     @Test
     public void duplicarAVLRecemCriada() {
-        final AVL<Integer, String> avlDuplicated = avl.duplicate();
+        final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
         avl.put(1, "A");
         assertSame(1, avl.size());
         assertSame(0, avlDuplicated.size());
@@ -183,7 +183,7 @@ public class AVLTest {
 
     @Test
     public void carregarDeArquivoAVLRecemCriada() throws IOException, ClassNotFoundException, ClassCastException {
-        final AVL<Integer, String> avlTmp = new AVL<>(Integer::compareTo);
+        final AVLTree<Integer, String> avlTmp = new AVLTree<>(Integer::compareTo);
         avlTmp.put(1997, "Everton Bruno Silva dos Santos");
         avlTmp.saveToFile(fileName);
         avlTmp.clear();
@@ -363,7 +363,7 @@ public class AVLTest {
         avl.put(1, "A");
         avl.put(2, "B");
         avl.put(3, "C");
-        final AVL<Integer, String> avlDuplicated = avl.duplicate();
+        final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
         avlDuplicated.setValue(2, "D");
         avlDuplicated.remove(3);
         avlDuplicated.setKey(1, 0);
@@ -394,7 +394,7 @@ public class AVLTest {
 
     @Test
     public void carregarDeArquivoAVLAposInserir() throws IOException, ClassNotFoundException, ClassCastException {
-        final AVL<Integer, String> avlTmp = new AVL<>(Integer::compareTo);
+        final AVLTree<Integer, String> avlTmp = new AVLTree<>(Integer::compareTo);
         avlTmp.saveToFile(fileName);
         avl.put(1997, "Everton Bruno Silva dos Santos");
         avl.loadFromFile(fileName);
