@@ -19,6 +19,8 @@
  */
 package sds.three;
 
+import sds.util.EntryNotFoundException;
+import sds.util.KeyUsedException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;

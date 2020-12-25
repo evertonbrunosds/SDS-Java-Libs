@@ -17,21 +17,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sds.three;
+package sds.util;
 
 /**
- * Interface responsável por fornecer a assinatura de objeto duplicável.
+ * Classe responsável por comportar-se como exceção de chave em uso.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo de objeto duplicável.
- * @version 1.4
+ * @version 1.0
  */
-@FunctionalInterface
-public interface Duplicable<T> {
+public class KeyUsedException extends RuntimeException {
+    /**
+     * Refere-se ao número de série da exceção de chave em uso.
+     */
+    private static final long serialVersionUID = -5226384390486923525L;
 
     /**
-     * Método responsável por duplicar objeto duplicável.
-     * @return Retorna objeto duplicata.
+     * Construtor responsável pelo instanciamento da exceção de chave em uso.
+     * @param msg Refere-se a mensagem da exceção de chave em uso.
      */
-    T duplicate();
+    public KeyUsedException(final String msg) {
+        super(msg);
+    }
 
 }
