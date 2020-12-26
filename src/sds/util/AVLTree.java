@@ -27,6 +27,7 @@ import sds.exceptions.EntryNotFoundException;
 import java.io.Serializable;
 import java.util.Map.Entry;
 import static java.lang.Math.max;
+import static java.lang.Integer.compare;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
@@ -55,6 +56,13 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      * Refere-se ao tamanho da árvore.
      */
     private int size;
+
+    /**
+     * Construtor responsável pelo instanciamento da árvore.
+     */
+    public AVLTree() {
+        this.comparator = (final K o1, final K o2) -> compare(o1.hashCode(), o2.hashCode());
+    }
 
     /**
      * Construtor responsável pelo instanciamento da árvore.
@@ -318,26 +326,6 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     }
 
     /**
-     * Método responsável por retornar a altura de determinado elo da árvore recursivamente.
-     * @param node Refere-se ao elo atual da recursão.
-     * @return Retorna altura de determinado elo da árvore recursivamente.
-     */
-    private int height(final Node node) {
-        if (node == null) {
-            return 0;
-        }
-        return max(height(node.left) + 1, height(node.right) + 1);
-    }
-
-    /**
-     * Método responsável por atualizar o valor de balanceamento de determinado elo da árvore.
-     * @param node Refere-se ao elo atual da recursão.
-     */
-    private void updateBalance(final Node node) {
-        node.balancing = (height(node.right) - height(node.left));
-    }
-
-    /**
      * Método responsável por efetuar rotações simples a esquerda em elos da árvore.
      * @param newRoot Refere-se ao novo elo raiz.
      * @param oldRoot Refere-se ao antigo elo raiz.
@@ -345,7 +333,9 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     private Node simpleRotationLeft(final Node newRoot, final Node oldRoot) {
         oldRoot.left = newRoot.right;
+        oldRoot.updateBalancing();
         newRoot.right = oldRoot;
+        newRoot.updateBalancing();
         return newRoot;
     }
 
@@ -357,7 +347,9 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     private Node simpleRotationRight(final Node newRoot, final Node oldRoot) {
         oldRoot.right = newRoot.left;
+        oldRoot.updateBalancing();
         newRoot.left = oldRoot;
+        newRoot.updateBalancing();
         return newRoot;
     }
 
@@ -370,7 +362,10 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     private Node doubleRotationLeft(final Node left, final Node oldRoot) {
         oldRoot.left = left.right;
         left.right = oldRoot.left.left;
+        left.updateBalancing();
         oldRoot.left.left = left;
+        oldRoot.left.updateBalancing();
+        oldRoot.updateBalancing();
         return simpleRotationLeft(oldRoot.left, oldRoot);
     }
 
@@ -383,7 +378,10 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     private Node doubleRotationRight(final Node right, final Node oldRoot) {
         oldRoot.right = right.left;
         right.left = oldRoot.right.right;
+        right.updateBalancing();
         oldRoot.right.right = right;
+        oldRoot.right.updateBalancing();
+        oldRoot.updateBalancing();
         return simpleRotationRight(oldRoot.right, oldRoot);
     }
 
@@ -393,7 +391,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      * @return Retorna elo raiz da árvore reconstruída com altura ajustada.
      */
     private Node adjustHeight(final Node node) {
-        updateBalance(node);
+        node.updateBalancing();
         if (node.balancing <= -2) {
             if (node.balancing * node.left.balancing > 0) {
                 return simpleRotationLeft(node.left, node);
@@ -429,9 +427,13 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
          */
         private V value;
         /**
+         * Refere-se a altura do elo.
+         */
+        private int height;
+        /**
          * Refere-se ao valor de balanceamento contido no elo.
          */
-        private transient int balancing;
+        private int balancing;
         /**
          * Refere-se ao elo a esquerda.
          */
@@ -449,7 +451,22 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         private Node(final K key, final V value) {
             this.key = key;
             this.value = value;
+            this.heigth = 1;
             this.balancing = 0;
+        }
+
+        /**
+         * Construtor responsável pelo instanciamento do elo.
+         * @param key       Refere-se a chave contida no elo.
+         * @param value     Refere-se ao valor contido no elo.
+         * @param height    Refere-se a altura do elo.
+         * @param balancing Refere-se ao valor de balanceamento contido no elo.
+         */
+        private Node(final K key, final V value, final int height, final int balancing) {
+            this.key = key;
+            this.value = value;
+            this.heigth = height;
+            this.balancing = balancing;
         }
 
         /**
@@ -474,6 +491,37 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
          */
         private boolean rightIsNotNull() {
             return right != null;
+        }
+
+        /**
+         * Método responsável por atualizar a altura contida no elo.
+         */
+        private void updateHeight() {
+            if (isSubThree()) {
+                height = 1 + max(left.heigth, right.heigth);
+            } else if (leftIsNotNull()) {
+                height = 1 + left.heigth;
+            } else if (rightIsNotNull()) {
+                height = 1 + right.heigth;
+            } else {
+                height = 1;
+            }
+        }
+
+        /**
+         * Método responsável por atualizar o balanceamento contido no elo.
+         */
+        private void updateBalancing() {
+            updateHeight();
+            if (isSubThree()) {
+                balancing = -left.heigth + right.heigth;
+            } else if (leftIsNotNull()) {
+                balancing = -left.heigth;
+            } else if (rightIsNotNull()) {
+                balancing = +right.heigth;
+            } else {
+                balancing = 0;
+            }
         }
 
         /**
@@ -512,7 +560,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
          */
         @Override
         public Node duplicate() {
-            final Node node = new Node(key, value);
+            final Node node = new Node(key, value, height, balancing);
             if (leftIsNotNull()) {
                 node.left = left.duplicate();
             }

@@ -412,5 +412,47 @@ public class AVLTreeTest {
             fail();
         }
     }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLAposInserçõesCrescentes() {
+        for(int i = 0; i < 500000; i++) {
+            avl.put(i, "A");
+        }
+        for(int i = 0; i < 500000; i++) {
+            assertTrue(avl.containsKey(i));
+        }
+    }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLAposInserçõesDecrescentes() {
+        for(int i = 500000; i > 0; i--) {
+            avl.put(i, "A");
+        }
+        for(int i = 500000; i > 0; i--) {
+            assertTrue(avl.containsKey(i));
+        }
+    }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLAposInserçõesCrescentesSemComparadorNaConstrução() {
+        avl = new AVLTree<>();
+        for(int i = 0; i < 500000; i++) {
+            avl.put(i, "A");
+        }
+        for(int i = 0; i < 500000; i++) {
+            assertTrue(avl.containsKey(i));
+        }
+    }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLAposInserçõesDecrescentesSemComparadorNaConstrução() {
+        avl = new AVLTree<>();
+        for(int i = 500000; i > 0; i--) {
+            avl.put(i, "A");
+        }
+        for(int i = 500000; i > 0; i--) {
+            assertTrue(avl.containsKey(i));
+        }
+    }
 
 }

@@ -47,7 +47,7 @@ public interface FileStream<T> extends Serializable {
      * @throws ClassNotFoundException Exceção lançada no caso de não haver classe no arquivo.
      * @throws ClassCastException     Exceção lançada no caso do tipo ser incompatível.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("class cast")
     default void loadFromFile(final String fileName) throws IOException, ClassNotFoundException, ClassCastException {
         try (final ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName))) {
             this.set((T) objectInputStream.readObject());

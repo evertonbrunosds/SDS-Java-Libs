@@ -1,2 +1,2 @@
-# SDSThree
-Uma biblioteca contendo implementações de árvores.
+# SDSJavaLibs
+Uma biblioteca de utilitários para a linguagem java.
