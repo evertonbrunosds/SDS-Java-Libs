@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSThree Open Source Project.
- * SDSThree is licensed under the GNU GPLv3.
+ * This file is part of the SDSJavaLibs Open Source Project.
+ * SDSJavaLibs is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -25,7 +25,7 @@ import java.io.Serializable;
  * Interface responsável por fornecer as assinaturas de métodos de um comparador.
  * @author Everton Bruno Silva dos Santos.
  * @param <T> Refere-se ao tipo do comparador.
- * @version 1.4
+ * @version 1.0
  */
 @FunctionalInterface
 public interface Comparator<T> extends java.util.Comparator<T>, Serializable {

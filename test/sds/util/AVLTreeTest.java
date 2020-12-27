@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSThree Open Source Project.
- * SDSThree is licensed under the GNU GPLv3.
+ * This file is part of the SDSJavaLibs Open Source Project.
+ * SDSJavaLibs is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -35,7 +35,7 @@ import java.util.Map.Entry;
 /**
  * Classe responsável por efetuar testes na árvore AVL.
  * @author Everton Bruno Silva dos Santos.
- * @version 1.4
+ * @version 1.0
  */
 public class AVLTreeTest {
     private AVLTree<Integer, String> avl;
@@ -415,20 +415,20 @@ public class AVLTreeTest {
     
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesCrescentes() {
-        for(int i = 0; i < 500000; i++) {
+        for(int i = 0; i < 1000; i++) {
             avl.put(i, "A");
         }
-        for(int i = 0; i < 500000; i++) {
+        for(int i = 0; i < 1000; i++) {
             assertTrue(avl.containsKey(i));
         }
     }
     
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesDecrescentes() {
-        for(int i = 500000; i > 0; i--) {
+        for(int i = 1000; i > 0; i--) {
             avl.put(i, "A");
         }
-        for(int i = 500000; i > 0; i--) {
+        for(int i = 1000; i > 0; i--) {
             assertTrue(avl.containsKey(i));
         }
     }
@@ -436,10 +436,10 @@ public class AVLTreeTest {
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesCrescentesSemComparadorNaConstrução() {
         avl = new AVLTree<>();
-        for(int i = 0; i < 500000; i++) {
+        for(int i = 0; i < 1000; i++) {
             avl.put(i, "A");
         }
-        for(int i = 0; i < 500000; i++) {
+        for(int i = 0; i < 1000; i++) {
             assertTrue(avl.containsKey(i));
         }
     }
@@ -447,11 +447,57 @@ public class AVLTreeTest {
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesDecrescentesSemComparadorNaConstrução() {
         avl = new AVLTree<>();
-        for(int i = 500000; i > 0; i--) {
+        for(int i = 1000; i > 0; i--) {
             avl.put(i, "A");
         }
-        for(int i = 500000; i > 0; i--) {
+        for(int i = 1000; i > 0; i--) {
             assertTrue(avl.containsKey(i));
+        }
+    }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesCrescentes() {
+        for(int i = 0; i < 1000; i++) {
+            avl.put(i, "A");
+        }
+        final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
+        for(int i = 0; i < 1000; i++) {
+            assertTrue(avlDuplicated.containsKey(i));
+        }
+    }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesDecrescentes() {
+        for(int i = 1000; i > 0; i--) {
+            avl.put(i, "A");
+        }
+        final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
+        for(int i = 1000; i > 0; i--) {
+            assertTrue(avlDuplicated.containsKey(i));
+        }
+    }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesCrescentesSemComparadorNaConstrução() {
+        avl = new AVLTree<>();
+        for(int i = 0; i < 1000; i++) {
+            avl.put(i, "A");
+        }
+        final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
+        for(int i = 0; i < 1000; i++) {
+            assertTrue(avlDuplicated.containsKey(i));
+        }
+    }
+    
+    @Test
+    public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesDecrescentesSemComparadorNaConstrução() {
+        avl = new AVLTree<>();
+        for(int i = 1000; i > 0; i--) {
+            avl.put(i, "A");
+        }
+        final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
+        for(int i = 1000; i > 0; i--) {
+            assertTrue(avlDuplicated.containsKey(i));
         }
     }
 

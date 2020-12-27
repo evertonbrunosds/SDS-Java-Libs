@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSThree Open Source Project.
- * SDSThree is licensed under the GNU GPLv3.
+ * This file is part of the SDSJavaLibs Open Source Project.
+ * SDSJavaLibs is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -22,7 +22,7 @@ package sds.exceptions;
 /**
  * Classe responsável por comportar-se como exceção de entrada não encontrada.
  * @author Everton Bruno Silva dos Santos.
- * @version 1.4
+ * @version 1.0
  */
 public class EntryNotFoundException extends RuntimeException {
     /**

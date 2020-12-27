@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSThree Open Source Project.
- * SDSThree is licensed under the GNU GPLv3.
+ * This file is part of the SDSJavaLibs Open Source Project.
+ * SDSJavaLibs is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -30,7 +30,7 @@ import java.io.Serializable;
  * Interface responsável por fornecer as assinaturas dos métodos de um arquivo em fluxo.
  * @author Everton Bruno Silva dos Santos.
  * @param <T> Refere-se ao tipo de arquivo em fluxo.
- * @version 1.4
+ * @version 1.0
  */
 public interface FileStream<T> extends Serializable {
 
@@ -47,7 +47,7 @@ public interface FileStream<T> extends Serializable {
      * @throws ClassNotFoundException Exceção lançada no caso de não haver classe no arquivo.
      * @throws ClassCastException     Exceção lançada no caso do tipo ser incompatível.
      */
-    @SuppressWarnings("class cast")
+    @SuppressWarnings("unchecked")
     default void loadFromFile(final String fileName) throws IOException, ClassNotFoundException, ClassCastException {
         try (final ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName))) {
             this.set((T) objectInputStream.readObject());

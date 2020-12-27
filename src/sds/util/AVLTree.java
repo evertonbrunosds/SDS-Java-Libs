@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSThree Open Source Project.
- * SDSThree is licensed under the GNU GPLv3.
+ * This file is part of the SDSJavaLibs Open Source Project.
+ * SDSJavaLibs is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -37,7 +37,7 @@ import java.util.function.Consumer;
  * @author Everton Bruno Silva dos Santos.
  * @param <K> Refere-se ao tipo de chave usada nas entradas.
  * @param <V> Refere-se ao tipo de valor usado nas entradas.
- * @version 1.4
+ * @version 1.0
  */
 public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<K, V>>, FileStream<AVLTree<K, V>> {
     /**
@@ -451,7 +451,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         private Node(final K key, final V value) {
             this.key = key;
             this.value = value;
-            this.heigth = 1;
+            this.height = 1;
             this.balancing = 0;
         }
 
@@ -465,7 +465,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         private Node(final K key, final V value, final int height, final int balancing) {
             this.key = key;
             this.value = value;
-            this.heigth = height;
+            this.height = height;
             this.balancing = balancing;
         }
 
@@ -498,11 +498,11 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
          */
         private void updateHeight() {
             if (isSubThree()) {
-                height = 1 + max(left.heigth, right.heigth);
+                height = 1 + max(left.height, right.height);
             } else if (leftIsNotNull()) {
-                height = 1 + left.heigth;
+                height = 1 + left.height;
             } else if (rightIsNotNull()) {
-                height = 1 + right.heigth;
+                height = 1 + right.height;
             } else {
                 height = 1;
             }
@@ -514,11 +514,11 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         private void updateBalancing() {
             updateHeight();
             if (isSubThree()) {
-                balancing = -left.heigth + right.heigth;
+                balancing = -left.height + right.height;
             } else if (leftIsNotNull()) {
-                balancing = -left.heigth;
+                balancing = -left.height;
             } else if (rightIsNotNull()) {
-                balancing = +right.heigth;
+                balancing = +right.height;
             } else {
                 balancing = 0;
             }
