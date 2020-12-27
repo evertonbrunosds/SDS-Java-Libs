@@ -501,4 +501,19 @@ public class AVLTreeTest {
         }
     }
 
+    @Test
+    public void verificarInexistênciaDeChaveEmAVLAposRemoções() {
+        for(int i = 0; i < 100; i++) {
+            avl.put(i, fileName);
+        }
+        for(int i = 0; i < 100; i++) {
+            assertTrue(avl.containsKey(i));
+            avl.remove(i);
+            assertFalse(avl.containsKey(i));
+            for(int j = i+1; j < 100; j++) {
+                assertTrue(avl.containsKey(j));
+            }
+        }
+    }
+
 }
