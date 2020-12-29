@@ -20,22 +20,22 @@
 package sds.exceptions;
 
 /**
- * Classe responsável por comportar-se como exceção de chave em uso.
+ * Classe responsável por comportar-se como exceção de String inválida.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
  */
-public class KeyUsedException extends RuntimeException {
+public class InvalidStringException extends Exception {
     /**
-     * Refere-se ao número de série da exceção de chave em uso.
+     * Refere-se ao número de série da exceção de String inválida.
      */
-    private transient static final long serialVersionUID = -5226384390486923525L;
+    private transient static final long serialVersionUID = 6516738805284251044L;
 
     /**
-     * Construtor responsável pelo instanciamento da exceção de chave em uso.
-     * @param msg Refere-se a mensagem da exceção de chave em uso.
+     * Construtor responsável pelo instanciamento da exceção de String inválida.
+     * @param msg Refere-se a mensagem da exceção de String inválida.
      */
-    public KeyUsedException(final String msg) {
+    public InvalidStringException(final String msg) {
         super(msg);
     }
-
+    
 }

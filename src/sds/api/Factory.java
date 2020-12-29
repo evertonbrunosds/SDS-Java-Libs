@@ -17,10 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sds.util;
+package sds.api;
 
 import java.util.concurrent.Semaphore;
-import sds.api.Worker;
 
 /**
  * Classe responsável por construir instâncias de objetos.

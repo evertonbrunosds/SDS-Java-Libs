@@ -310,6 +310,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         final Receiver<Node> forEach;
         if (isReverseIterations()) {
             forEach = new Receiver<Node>() {
+                private transient static final long serialVersionUID = -2032273739428212712L;
                 @Override
                 public void receive(final Node node) {
                     if (node != null) {
@@ -321,6 +322,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
             };
         } else {
             forEach = new Receiver<Node>() {
+                private transient static final long serialVersionUID = 9019470629284711398L;
                 @Override
                 public void receive(final Node node) {
                     if (node != null) {

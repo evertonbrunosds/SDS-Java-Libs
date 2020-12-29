@@ -20,22 +20,36 @@
 package sds.exceptions;
 
 /**
- * Classe responsável por comportar-se como exceção de chave em uso.
+ * Classe responsável por comportar-se como exceção de valor inteiro inválido.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
  */
-public class KeyUsedException extends RuntimeException {
+public class InvalidIntegerException extends Exception {
     /**
-     * Refere-se ao número de série da exceção de chave em uso.
+     * Refere-se ao número de série da exceção de valor inteiro inválido.
      */
-    private transient static final long serialVersionUID = -5226384390486923525L;
+    private transient static final long serialVersionUID = -1089770017248175608L;
+    /**
+     * Refere-se ao valor inválido.
+     */
+    private final String value;
 
     /**
-     * Construtor responsável pelo instanciamento da exceção de chave em uso.
-     * @param msg Refere-se a mensagem da exceção de chave em uso.
+     * Construtor responsável pelo instanciamento da exceção de valor inteiro inválido.
+     * @param msg   Refere-se a mensagem da exceção de valor inteiro inválido.
+     * @param value Refere-se ao dito valor inválido.
      */
-    public KeyUsedException(final String msg) {
+    public InvalidIntegerException(final String msg, final String value) {
         super(msg);
+        this.value = value;
+    }
+
+    /**
+     * Método responsável por retornar o valor inválido.
+     * @return Retorna o valor inválido.
+     */
+    public String getValue() {
+        return value;
     }
 
 }

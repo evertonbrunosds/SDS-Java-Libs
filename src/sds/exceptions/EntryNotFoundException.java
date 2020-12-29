@@ -28,7 +28,7 @@ public class EntryNotFoundException extends RuntimeException {
     /**
      * Refere-se ao número de série da exceção de entrada não encontrada.
      */
-    private static final long serialVersionUID = -2020384390486923525L;
+    private transient static final long serialVersionUID = -2020384390486923525L;
 
     /**
      * Construtor responsável pelo instanciamento da exceção de entrada não encontrada.

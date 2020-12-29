@@ -24,17 +24,18 @@ import java.io.Serializable;
 /**
  * Interface responsável por fornecer a assinatura de método de um modificador.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo de dados a ser modificado.
+ * @param <I> Refere-se ao tipo de entrada.
+ * @param <O> Refere-se ao tipo de saída.
  * @version 1.0
  */
 @FunctionalInterface
-public interface Modifier<T> extends Serializable {
+public interface Modifier<I, O> extends Serializable {
 
     /**
      * Método responsável por modificar uma entrada de dados.
      * @param data Refere-se a dita entrada de dados.
      * @return Retorna a dita entrada de dados modificada.
      */
-    T modify(T data);
+    O modify(I data);
 
 }
