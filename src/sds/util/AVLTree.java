@@ -56,12 +56,17 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      * Refere-se ao tamanho da árvore.
      */
     private int size;
+    /**
+     * Refere-se a indicativo de que as iterações devem ser reversas.
+     */
+    private boolean reverseIterations;
 
     /**
      * Construtor responsável pelo instanciamento da árvore.
      */
     public AVLTree() {
         this.comparator = (final K o1, final K o2) -> compare(o1.hashCode(), o2.hashCode());
+        this.reverseIterations = false;
     }
 
     /**
@@ -75,18 +80,21 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         }
         this.comparator = comparator;
         this.size = 0;
+        this.reverseIterations = false;
     }
 
     /**
      * Construtor responsável pelo instanciamento da árvore.
-     * @param comparator Refere-se ao objeto comparador de chaves.
-     * @param root       Refere-se ao objeto raiz da árvore.
-     * @param size       Refere-se ao tamanho da árvore.
+     * @param comparator        Refere-se ao objeto comparador de chaves.
+     * @param root              Refere-se ao objeto raiz da árvore.
+     * @param size              Refere-se ao tamanho da árvore.
+     * @param reverseIterations Refere-se a indicativo de que as iterações devem ser reversas.
      */
-    private AVLTree(final Comparator<K> comparator, final Node root, final int size) {
+    private AVLTree(final Comparator<K> comparator, final Node root, final int size, final boolean reverseIterations) {
         this.comparator = comparator;
         this.root = root;
         this.size = size;
+        this.reverseIterations = reverseIterations;
     }
 
     /**
@@ -228,7 +236,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     @Override
     public AVLTree<K, V> duplicate() {
-        return !isEmpty() ? new AVLTree<>(comparator, root.duplicate(), size) : new AVLTree<>(comparator);
+        return !isEmpty() ? new AVLTree<>(comparator, root.duplicate(), size, reverseIterations) : new AVLTree<>(comparator);
     }
 
     /**
@@ -280,8 +288,8 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     }
 
     /**
-     * Método responsável por retornar estrutura iterável de entradas contidos na árvore.
-     * @return Retorna estrutura iterável de entradas contidos na árvore.
+     * Método responsável por retornar estrutura iterável de entradas contidas na árvore.
+     * @return Retorna estrutura iterável de entradas contidas na árvore.
      */
     @Override
     public Iterator<Entry<K, V>> iterator() {
@@ -293,24 +301,41 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     }
 
     /**
-     * Método responsável por percorrer por entradas contidos na árvore.
+     * Método responsável por percorrer por entradas contidas na árvore.
      * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
      */
     @Override
     public void forEach(final Consumer<? super Entry<K, V>> entry) {
-        forEach(entry, root);
+        if (isReverseIterations()) {
+            walkingInDescendingOrder(entry, root);
+        } else {
+            walkingInAscendingOrder(entry, root);
+        }
     }
 
     /**
-     * Método responsável por percorrer por entradas contidos na árvore recursivamente.
+     * Método responsável por percorrer por entradas contidas na árvore de modo crescente recursivamente.
      * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
      * @param node  Refere-se ao elo atual da recursão.
      */
-    private void forEach(final Consumer<? super Entry<K, V>> entry, final Node node) {
+    private void walkingInAscendingOrder(final Consumer<? super Entry<K, V>> entry, final Node node) {
         if (node != null) {
-            forEach(entry, node.left);
+            walkingInAscendingOrder(entry, node.left);
             entry.accept(node);
-            forEach(entry, node.right);
+            walkingInAscendingOrder(entry, node.right);
+        }
+    }
+
+    /**
+     * Método responsável por percorrer por entradas contidas na árvore de modo decrescente recursivamente.
+     * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
+     * @param node  Refere-se ao elo atual da recursão.
+     */
+    private void walkingInDescendingOrder(final Consumer<? super Entry<K, V>> entry, final Node node) {
+        if (node != null) {
+            walkingInDescendingOrder(entry, node.right);
+            entry.accept(node);
+            walkingInDescendingOrder(entry, node.left);
         }
     }
 
@@ -323,6 +348,22 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         this.comparator = newData.comparator;
         this.root = newData.root;
         this.size = newData.size;
+    }
+
+    /**
+     * Método responsável por alterar indicação de que as iterações devem ser reversas.
+     * @param reverseIterations Refere-se a reversão das iterações.
+     */
+    public void setReverseIterations(final boolean reverseIterations) {
+        this.reverseIterations = reverseIterations;
+    }
+
+    /**
+     * Método responsável por indicar se as iterações devem ser reversas.
+     * @return Retorna indicativo de que as iterações devem ser reversas.
+     */
+    public boolean isReverseIterations() {
+        return reverseIterations;
     }
 
     /**

@@ -40,6 +40,7 @@ import java.util.Map.Entry;
 public class AVLTreeTest {
     private AVLTree<Integer, String> avl;
     private final String fileName;
+    private int globalCounter;
 
     public AVLTreeTest() {
         fileName = "FileTest";
@@ -55,6 +56,7 @@ public class AVLTreeTest {
 
     @Before
     public void setUp() {
+        globalCounter = 0;
         avl = new AVLTree<>(Integer::compareTo);
     }
 
@@ -513,6 +515,46 @@ public class AVLTreeTest {
             for(int j = i+1; j < 100; j++) {
                 assertTrue(avl.containsKey(j));
             }
+        }
+    }
+
+    @Test
+    public void forInReverso() {
+        for(int i = 0; i <= 100; i++) {
+            avl.put(i, "");
+        }
+        avl.setReverseIterations(true);
+        int counter = 100;
+        for (final Entry<Integer, String> entry : avl) {
+            assertSame(counter, entry.getKey());
+            counter--;
+        }
+    }
+
+    @Test
+    public void forEachReverso() {
+        for(int i = 0; i <= 100; i++) {
+            avl.put(i, "");
+        }
+        avl.setReverseIterations(true);
+        globalCounter = 100;
+        avl.forEach(entry -> {
+            assertSame(globalCounter, entry.getKey());
+            globalCounter--;
+        });
+    }
+
+    @Test
+    public void iteratorReverso() {
+        for(int i = 0; i <= 100; i++) {
+            avl.put(i, "");
+        }
+        avl.setReverseIterations(true);
+        globalCounter = 100;
+        final Iterator<Entry<Integer,String>> iterator = avl.iterator();
+        while(iterator.hasNext()) {
+            assertSame(globalCounter, iterator.next().getKey());
+            globalCounter--;
         }
     }
 
