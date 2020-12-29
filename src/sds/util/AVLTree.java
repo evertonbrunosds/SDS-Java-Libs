@@ -31,6 +31,7 @@ import static java.lang.Integer.compare;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import sds.api.Receiver;
 
 /**
  * Classe responsável por comportar-se como árvore AVL.
@@ -306,37 +307,31 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     @Override
     public void forEach(final Consumer<? super Entry<K, V>> entry) {
+        final Receiver<Node> forEach;
         if (isReverseIterations()) {
-            walkingInDescendingOrder(entry, root);
+            forEach = new Receiver<Node>() {
+                @Override
+                public void receive(final Node node) {
+                    if (node != null) {
+                        receive(node.right);
+                        entry.accept(node);
+                        receive(node.left);
+                    }
+                }
+            };
         } else {
-            walkingInAscendingOrder(entry, root);
+            forEach = new Receiver<Node>() {
+                @Override
+                public void receive(final Node node) {
+                    if (node != null) {
+                        receive(node.left);
+                        entry.accept(node);
+                        receive(node.right);
+                    }
+                }
+            };
         }
-    }
-
-    /**
-     * Método responsável por percorrer por entradas contidas na árvore de modo crescente recursivamente.
-     * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
-     * @param node  Refere-se ao elo atual da recursão.
-     */
-    private void walkingInAscendingOrder(final Consumer<? super Entry<K, V>> entry, final Node node) {
-        if (node != null) {
-            walkingInAscendingOrder(entry, node.left);
-            entry.accept(node);
-            walkingInAscendingOrder(entry, node.right);
-        }
-    }
-
-    /**
-     * Método responsável por percorrer por entradas contidas na árvore de modo decrescente recursivamente.
-     * @param entry Refere-se as entradas da árvore detentoras de valores e chaves.
-     * @param node  Refere-se ao elo atual da recursão.
-     */
-    private void walkingInDescendingOrder(final Consumer<? super Entry<K, V>> entry, final Node node) {
-        if (node != null) {
-            walkingInDescendingOrder(entry, node.right);
-            entry.accept(node);
-            walkingInDescendingOrder(entry, node.left);
-        }
+        forEach.receive(root);
     }
 
     /**
