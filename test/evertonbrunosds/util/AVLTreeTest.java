@@ -17,10 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sds.util;
+package evertonbrunosds.util;
 
-import sds.exceptions.EntryNotFoundException;
-import sds.exceptions.KeyUsedException;
+import evertonbrunosds.util.AVLTree;
+import evertonbrunosds.exceptions.EntryNotFoundException;
+import evertonbrunosds.exceptions.KeyUsedException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -31,7 +32,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.Map.Entry;
-import sds.api.Comparator;
+import evertonbrunosds.api.Comparator;
 
 /**
  * Classe responsável por efetuar testes na árvore AVL.

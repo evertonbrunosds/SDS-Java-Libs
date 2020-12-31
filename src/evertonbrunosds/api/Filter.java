@@ -17,11 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sds.api;
+package evertonbrunosds.api;
 
-import sds.exceptions.InvalidDoubleException;
-import sds.exceptions.InvalidIntegerException;
-import sds.exceptions.InvalidStringException;
+import evertonbrunosds.exceptions.InvalidDoubleException;
+import evertonbrunosds.exceptions.InvalidIntegerException;
+import evertonbrunosds.exceptions.InvalidStringException;
 
 /**
  * Interface responsável por fornecer a assinatura de objeto filtrante.

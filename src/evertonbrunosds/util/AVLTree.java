@@ -17,13 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sds.util;
+package evertonbrunosds.util;
 
-import sds.api.Comparator;
-import sds.api.Duplicable;
-import sds.api.FileStream;
-import sds.exceptions.KeyUsedException;
-import sds.exceptions.EntryNotFoundException;
+import evertonbrunosds.api.Comparator;
+import evertonbrunosds.api.Duplicable;
+import evertonbrunosds.api.FileStream;
+import evertonbrunosds.exceptions.KeyUsedException;
+import evertonbrunosds.exceptions.EntryNotFoundException;
 import java.io.Serializable;
 import java.util.Map.Entry;
 import static java.lang.Math.max;
@@ -31,7 +31,7 @@ import static java.lang.Integer.compare;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
-import sds.api.Receiver;
+import evertonbrunosds.api.Receiver;
 
 /**
  * Classe responsável por comportar-se como árvore AVL.
@@ -221,8 +221,11 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         final Node node = find(currentKey, root);
         if (node == null) {
             throw new EntryNotFoundException("Entry not found.");
-        } else if (comparator.compare(currentKey, newKey) == 0 || find(newKey, root) == null) {
+        } else if (comparator.compare(currentKey, newKey) == 0) {
             node.key = newKey;
+        } else if (find(newKey, root) == null) {
+            remove(currentKey);
+            put(newKey, node.value);
         } else {
             throw new KeyUsedException("Key used.");
         }
