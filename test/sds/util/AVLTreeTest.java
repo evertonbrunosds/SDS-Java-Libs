@@ -31,6 +31,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.Map.Entry;
+import sds.api.Comparator;
 
 /**
  * Classe responsável por efetuar testes na árvore AVL.
@@ -344,6 +345,19 @@ public class AVLTreeTest {
         avl.forEach(entry -> {
             assertEquals(new Integer(237), entry.getKey());
         });
+    }
+
+    @Test
+    public void alterarChaveDeEntradaDeAVLAposInserirChaveDiferenteTratadaComoIgualPeloComparador() {
+        final AVLTree<String,Integer> avlString;
+        avlString = new AVLTree<>((final String v1, final String v2) -> v1.toLowerCase().compareTo(v2.toLowerCase()));
+        avlString.put("SDS", 123);
+        avlString.put("SBS", 321);
+        avlString.setKey("SDS", "sds");
+        final Iterator<Entry<String,Integer>> iterator = avlString.iterator();
+        assertSame("SBS", iterator.next().getKey());
+        assertSame("sds", iterator.next().getKey());
+        assertNull(iterator.next());
     }
 
     @Test

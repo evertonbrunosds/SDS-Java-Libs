@@ -219,15 +219,12 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     public void setKey(final K currentKey, final K newKey) throws KeyUsedException, EntryNotFoundException {
         final Node node = find(currentKey, root);
-        final Node otherNode = find(newKey, root);
         if (node == null) {
             throw new EntryNotFoundException("Entry not found.");
-        } else if (otherNode != null && !node.equals(otherNode)) {
-            throw new KeyUsedException("Key used.");
-        } else if (!node.equals(otherNode)) {
-            remove(node.key);
+        } else if (comparator.compare(currentKey, newKey) == 0 || find(newKey, root) == null) {
             node.key = newKey;
-            put(node.key, node.value);
+        } else {
+            throw new KeyUsedException("Key used.");
         }
     }
 
