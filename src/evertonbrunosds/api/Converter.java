@@ -137,7 +137,7 @@ public interface Converter {
          * @return Retorna valor decimal convertido para String.
          */
         public static java.lang.String toString(final double value) {
-            final DecimalFormat decimalFormat = new DecimalFormat("0,00");
+            final DecimalFormat decimalFormat = new DecimalFormat("0.00");
             return decimalFormat.format(value);
         }
 
