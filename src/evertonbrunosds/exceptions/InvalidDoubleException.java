@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -23,6 +23,7 @@ package evertonbrunosds.exceptions;
  * Classe responsável por comportar-se como exceção de valor decimal inválido.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @since 1.0
  */
 public class InvalidDoubleException extends Exception {
     /**
@@ -36,11 +37,10 @@ public class InvalidDoubleException extends Exception {
 
     /**
      * Construtor responsável pelo instanciamento da exceção de valor decimal inválido.
-     * @param msg   Refere-se a mensagem da exceção de valor decimal inválido.
      * @param value Refere-se ao dito valor inválido.
      */
-    public InvalidDoubleException(final String msg, final String value) {
-        super(msg);
+    public InvalidDoubleException(final String value) {
+        super("Invalid double.");
         this.value = value;
     }
 

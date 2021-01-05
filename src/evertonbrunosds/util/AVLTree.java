@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -39,6 +39,7 @@ import evertonbrunosds.api.Receiver;
  * @param <K> Refere-se ao tipo de chave usada nas entradas.
  * @param <V> Refere-se ao tipo de valor usado nas entradas.
  * @version 1.0
+ * @since 1.0
  */
 public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<K, V>>, FileStream<AVLTree<K, V>> {
     /**
@@ -151,7 +152,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         } else if (result < 0) {
             node.right = put(key, value, node.right);
         } else {
-            throw new KeyUsedException("Key used.");
+            throw new KeyUsedException();
         }
         return adjustHeight(node);
     }
@@ -165,7 +166,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     public Entry<K, V> find(final K key) throws EntryNotFoundException {
         final Entry<K, V> entry = find(key, root);
         if (entry == null) {
-            throw new EntryNotFoundException("Entry not found.");
+            throw new EntryNotFoundException();
         }
         return entry;
     }
@@ -220,14 +221,14 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     public void setKey(final K currentKey, final K newKey) throws KeyUsedException, EntryNotFoundException {
         final Node node = find(currentKey, root);
         if (node == null) {
-            throw new EntryNotFoundException("Entry not found.");
+            throw new EntryNotFoundException();
         } else if (comparator.compare(currentKey, newKey) == 0) {
             node.key = newKey;
         } else if (find(newKey, root) == null) {
             remove(currentKey);
             put(newKey, node.value);
         } else {
-            throw new KeyUsedException("Key used.");
+            throw new KeyUsedException();
         }
     }
 
@@ -259,7 +260,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     private Node remove(final K key, final Node node) throws EntryNotFoundException {
         if (node == null) {
-            throw new EntryNotFoundException("Entry not found.");
+            throw new EntryNotFoundException();
         }
         final int result = comparator.compare(node.key, key);
         if (result > 0) {
@@ -450,6 +451,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      * Classe responsável por comportar-se como elo da árvore.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     private class Node implements Entry<K, V>, Serializable, Duplicable<Node> {
         /**
@@ -615,6 +617,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      * @author Everton Bruno Silva dos Santos.
      * @param <T> Refere-se ao tipo de dados iterável.
      * @version 1.0
+     * @since 1.0
      */
     private class MyIterator<T> implements Iterator<T>, Serializable {
         /**

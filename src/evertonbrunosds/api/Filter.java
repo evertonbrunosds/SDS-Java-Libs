@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -27,6 +27,7 @@ import evertonbrunosds.exceptions.InvalidStringException;
  * Interface responsável por fornecer a assinatura de objeto filtrante.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @since 1.0
  */
 public interface Filter {
 
@@ -34,6 +35,7 @@ public interface Filter {
      * Classe responsável por comportar-se como um filtro de String.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     public static final class String {
 
@@ -44,9 +46,9 @@ public interface Filter {
          */
         public static void invalid(final java.lang.String string) throws InvalidStringException {
             if (string == null) {
-                throw new InvalidStringException("Invalid string.");
+                throw new InvalidStringException();
             } else if (string.equals("")) {
-                throw new InvalidStringException("Invalid string.");
+                throw new InvalidStringException();
             }
         }
 
@@ -56,6 +58,7 @@ public interface Filter {
      * Classe responsável por comportar-se como um filtro de valor inteiro.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     public static final class Integer {
 
@@ -71,7 +74,7 @@ public interface Filter {
             try {
                 java.lang.Integer.parseInt(value);
             } catch (final NumberFormatException ex) {
-                throw new InvalidIntegerException("Invalid double.", value);
+                throw new InvalidIntegerException(value);
             }
         }
 
@@ -81,6 +84,7 @@ public interface Filter {
      * Classe responsável por comportar-se como um filtro de valor decimal.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     public static final class Double {
 
@@ -95,7 +99,7 @@ public interface Filter {
             try {
                 java.lang.Double.parseDouble(value.replace(',', '.'));
             } catch (final NumberFormatException ex) {
-                throw new InvalidDoubleException("Invalid double.", value);
+                throw new InvalidDoubleException(value);
             }
         }
 

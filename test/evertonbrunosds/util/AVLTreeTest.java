@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -19,7 +19,6 @@
  */
 package evertonbrunosds.util;
 
-import evertonbrunosds.util.AVLTree;
 import evertonbrunosds.exceptions.EntryNotFoundException;
 import evertonbrunosds.exceptions.KeyUsedException;
 import java.io.File;
@@ -32,12 +31,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.Map.Entry;
-import evertonbrunosds.api.Comparator;
 
 /**
  * Classe responsável por efetuar testes na árvore AVL.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @since 1.0
  */
 public class AVLTreeTest {
     private AVLTree<Integer, String> avl;

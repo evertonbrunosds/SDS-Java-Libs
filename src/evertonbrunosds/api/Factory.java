@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -25,6 +25,7 @@ import java.util.concurrent.Semaphore;
  * Classe responsável por construir instâncias de objetos.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @since 1.0
  */
 public interface Factory {
 
@@ -32,6 +33,7 @@ public interface Factory {
      * Classe responsável por fornecer métodos de instanciamento de Threads.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     public static final class Thread {
         /**

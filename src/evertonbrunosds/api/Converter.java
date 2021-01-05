@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -28,6 +28,7 @@ import evertonbrunosds.exceptions.InvalidStringException;
  * Interface responsável por fornecer a assinatura de objeto conversor.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @since 1.0
  */
 public interface Converter {
 
@@ -35,6 +36,7 @@ public interface Converter {
      * Classe responsável por comportar-se como um conversor de String.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     public static final class String {
 
@@ -70,6 +72,7 @@ public interface Converter {
      * Classe responsável por comportar-se como um conversor de valor inteiro.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     public static final class Integer {
 
@@ -106,6 +109,7 @@ public interface Converter {
      * Classe responsável por comportar-se como um conversor de valor decimal.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
+     * @since 1.0
      */
     public static final class Double {
 

@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -23,6 +23,7 @@ package evertonbrunosds.exceptions;
  * Classe responsável por comportar-se como exceção de entrada não encontrada.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @since 1.0
  */
 public class EntryNotFoundException extends RuntimeException {
     /**
@@ -32,10 +33,9 @@ public class EntryNotFoundException extends RuntimeException {
 
     /**
      * Construtor responsável pelo instanciamento da exceção de entrada não encontrada.
-     * @param msg Refere-se a mensagem da exceção de entrada não encontrada.
      */
-    public EntryNotFoundException(final String msg) {
-        super(msg);
+    public EntryNotFoundException() {
+        super("Entry not found.");
     }
 
 }

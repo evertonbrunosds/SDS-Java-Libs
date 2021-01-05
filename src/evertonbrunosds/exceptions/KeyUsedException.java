@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -23,6 +23,7 @@ package evertonbrunosds.exceptions;
  * Classe responsável por comportar-se como exceção de chave em uso.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @since 1.0
  */
 public class KeyUsedException extends RuntimeException {
     /**
@@ -32,10 +33,9 @@ public class KeyUsedException extends RuntimeException {
 
     /**
      * Construtor responsável pelo instanciamento da exceção de chave em uso.
-     * @param msg Refere-se a mensagem da exceção de chave em uso.
      */
-    public KeyUsedException(final String msg) {
-        super(msg);
+    public KeyUsedException() {
+        super("Key used.");
     }
 
 }

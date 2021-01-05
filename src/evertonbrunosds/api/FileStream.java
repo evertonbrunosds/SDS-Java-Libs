@@ -1,6 +1,6 @@
 /*
- * This file is part of the SDSJavaLibs Open Source Project.
- * SDSJavaLibs is licensed under the GNU GPLv3.
+ * This file is part of the SDSUtilityLib Open Source Project.
+ * SDSUtilityLib is licensed under the GNU GPLv3.
  *
  * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
@@ -31,6 +31,7 @@ import java.io.Serializable;
  * @author Everton Bruno Silva dos Santos.
  * @param <T> Refere-se ao tipo de arquivo em fluxo.
  * @version 1.0
+ * @since 1.0
  */
 public interface FileStream<T> extends Serializable {
 
