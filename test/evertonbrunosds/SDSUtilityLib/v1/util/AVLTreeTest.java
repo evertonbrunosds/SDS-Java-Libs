@@ -17,10 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package evertonbrunosds.util;
+package evertonbrunosds.SDSUtilityLib.v1.util;
 
-import evertonbrunosds.exceptions.EntryNotFoundException;
-import evertonbrunosds.exceptions.KeyUsedException;
+import evertonbrunosds.SDSUtilityLib.v1.util.AVLTree;
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.EntryNotFoundException;
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.KeyUsedException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;

@@ -17,11 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package evertonbrunosds.api;
+package evertonbrunosds.SDSUtilityLib.v1.api;
 
-import evertonbrunosds.exceptions.InvalidDoubleException;
-import evertonbrunosds.exceptions.InvalidIntegerException;
-import evertonbrunosds.exceptions.InvalidStringException;
+import evertonbrunosds.SDSUtilityLib.v1.api.Filter;
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDoubleException;
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidIntegerException;
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidStringException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

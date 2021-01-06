@@ -17,13 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package evertonbrunosds.util;
+package evertonbrunosds.SDSUtilityLib.v1.util;
 
-import evertonbrunosds.api.Comparator;
-import evertonbrunosds.api.Duplicable;
-import evertonbrunosds.api.FileStream;
-import evertonbrunosds.exceptions.KeyUsedException;
-import evertonbrunosds.exceptions.EntryNotFoundException;
+import evertonbrunosds.SDSUtilityLib.v1.api.Comparator;
+import evertonbrunosds.SDSUtilityLib.v1.api.Duplicable;
+import evertonbrunosds.SDSUtilityLib.v1.api.FileStream;
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.KeyUsedException;
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.EntryNotFoundException;
 import java.io.Serializable;
 import java.util.Map.Entry;
 import static java.lang.Math.max;
@@ -31,7 +31,7 @@ import static java.lang.Integer.compare;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
-import evertonbrunosds.api.Receiver;
+import evertonbrunosds.SDSUtilityLib.v1.api.Receiver;
 
 /**
  * Classe responsável por comportar-se como árvore AVL.
@@ -372,9 +372,9 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     private Node simpleRotationLeft(final Node newRoot, final Node oldRoot) {
         oldRoot.left = newRoot.right;
-        oldRoot.updateBalancing();
+        oldRoot.updateHeightAndBalancing();
         newRoot.right = oldRoot;
-        newRoot.updateBalancing();
+        newRoot.updateHeightAndBalancing();
         return newRoot;
     }
 
@@ -386,9 +386,9 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      */
     private Node simpleRotationRight(final Node newRoot, final Node oldRoot) {
         oldRoot.right = newRoot.left;
-        oldRoot.updateBalancing();
+        oldRoot.updateHeightAndBalancing();
         newRoot.left = oldRoot;
-        newRoot.updateBalancing();
+        newRoot.updateHeightAndBalancing();
         return newRoot;
     }
 
@@ -401,10 +401,10 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     private Node doubleRotationLeft(final Node left, final Node oldRoot) {
         oldRoot.left = left.right;
         left.right = oldRoot.left.left;
-        left.updateBalancing();
+        left.updateHeightAndBalancing();
         oldRoot.left.left = left;
-        oldRoot.left.updateBalancing();
-        oldRoot.updateBalancing();
+        oldRoot.left.updateHeightAndBalancing();
+        oldRoot.updateHeightAndBalancing();
         return simpleRotationLeft(oldRoot.left, oldRoot);
     }
 
@@ -417,10 +417,10 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
     private Node doubleRotationRight(final Node right, final Node oldRoot) {
         oldRoot.right = right.left;
         right.left = oldRoot.right.right;
-        right.updateBalancing();
+        right.updateHeightAndBalancing();
         oldRoot.right.right = right;
-        oldRoot.right.updateBalancing();
-        oldRoot.updateBalancing();
+        oldRoot.right.updateHeightAndBalancing();
+        oldRoot.updateHeightAndBalancing();
         return simpleRotationRight(oldRoot.right, oldRoot);
     }
 
@@ -430,7 +430,7 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
      * @return Retorna elo raiz da árvore reconstruída com altura ajustada.
      */
     private Node adjustHeight(final Node node) {
-        node.updateBalancing();
+        node.updateHeightAndBalancing();
         if (node.balancing <= -2) {
             if (node.balancing * node.left.balancing > 0) {
                 return simpleRotationLeft(node.left, node);
@@ -534,32 +534,20 @@ public class AVLTree<K, V> implements Iterable<Entry<K, V>>, Duplicable<AVLTree<
         }
 
         /**
-         * Método responsável por atualizar a altura contida no elo.
+         * Método responsável por atualizar a altura e o balanceamento contido no elo.
          */
-        private void updateHeight() {
+        private void updateHeightAndBalancing() {
             if (isSubThree()) {
                 height = 1 + max(left.height, right.height);
-            } else if (leftIsNotNull()) {
-                height = 1 + left.height;
-            } else if (rightIsNotNull()) {
-                height = 1 + right.height;
-            } else {
-                height = 1;
-            }
-        }
-
-        /**
-         * Método responsável por atualizar o balanceamento contido no elo.
-         */
-        private void updateBalancing() {
-            updateHeight();
-            if (isSubThree()) {
                 balancing = -left.height + right.height;
             } else if (leftIsNotNull()) {
+                height = 1 + left.height;
                 balancing = -left.height;
             } else if (rightIsNotNull()) {
+                height = 1 + right.height;
                 balancing = +right.height;
             } else {
+                height = 1;
                 balancing = 0;
             }
         }
