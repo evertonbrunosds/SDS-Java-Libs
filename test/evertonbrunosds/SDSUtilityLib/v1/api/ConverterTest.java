@@ -73,13 +73,16 @@ public class ConverterTest {
 
     @Test
     public void stringToPositiveDouble() throws InvalidStringException, InvalidDoubleException {
-        assertEquals(22.5, Converter.String.toDouble("22.5"), 0.00);
         assertEquals(22.5, Converter.String.toDouble("22,5"), 0.00);
     }
 
     @Test
+    public void stringFormatedToDouble() throws InvalidStringException, InvalidDoubleException {
+        assertEquals(1022.25, Converter.String.toDouble("1.022,25"), 0.00);
+    }
+
+    @Test
     public void stringToNegativeDouble() throws InvalidStringException, InvalidDoubleException {
-        assertEquals(-22.5, Converter.String.toDouble("-22.5"), 0.00);
         assertEquals(-22.5, Converter.String.toDouble("-22,5"), 0.00);
     }
 
@@ -119,5 +122,11 @@ public class ConverterTest {
     public void doubleValueToString() {
         assertEquals("22,50", Converter.Double.toString(22.50));
         assertEquals("-22,50", Converter.Double.toString(-22.50));
+    }
+    
+    @Test
+    public void doubleValueToFormatedString() {
+        assertEquals("1.022,50", Converter.Double.toString(1022.50));
+        assertEquals("-1.022,50", Converter.Double.toString(-1022.50));
     }
 }

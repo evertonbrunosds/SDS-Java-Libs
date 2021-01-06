@@ -116,7 +116,7 @@ public interface Filter {
         public static void invalid(final java.lang.String value) throws InvalidStringException, InvalidDoubleException {
             String.invalid(value);
             try {
-                java.lang.Double.parseDouble(value.replace(',', '.'));
+                java.lang.Double.parseDouble(String.remove(value, '.').replace(',', '.'));
             } catch (final NumberFormatException ex) {
                 throw new InvalidDoubleException(value);
             }

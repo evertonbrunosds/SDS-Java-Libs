@@ -63,7 +63,7 @@ public interface Converter {
         public static double toDouble(final java.lang.String value)
                 throws InvalidStringException, InvalidDoubleException {
             Filter.Double.invalid(value);
-            return java.lang.Double.parseDouble(value.replace(',', '.'));
+            return java.lang.Double.parseDouble(Filter.String.remove(value, '.').replace(',', '.'));
         }
 
     }
@@ -138,7 +138,7 @@ public interface Converter {
          * @return Retorna valor decimal convertido para String.
          */
         public static java.lang.String toString(final double value) {
-            final DecimalFormat decimalFormat = new DecimalFormat("0.00");
+            final DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
             return decimalFormat.format(value);
         }
 

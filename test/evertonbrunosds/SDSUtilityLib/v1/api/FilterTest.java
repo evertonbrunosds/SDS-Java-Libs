@@ -145,6 +145,16 @@ public class FilterTest {
             assertEquals("Invalid string.", ex.getMessage());
         }
     }
+    
+    @Test
+    public void validFormatedDouble() {
+        try {
+            Filter.Double.invalid("1.022,25");
+            assertTrue(true);
+        } catch (final InvalidStringException | InvalidDoubleException ex) {
+            fail();
+        }
+    }
 
     @Test
     public void validPositiveDouble() {
