@@ -87,6 +87,16 @@ public class FilterTest {
     }
 
     @Test
+    public void validFormatedInteger() {
+        try {
+            Filter.Integer.invalid("1.022");
+            assertTrue(true);
+        } catch (final InvalidStringException | InvalidIntegerException ex) {
+            fail();
+        }
+    }
+
+    @Test
     public void validPositiveInteger() {
         try {
             Filter.Integer.invalid("22");

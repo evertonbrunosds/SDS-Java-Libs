@@ -62,6 +62,11 @@ public class ConverterTest {
     }
 
     @Test
+    public void stringFormatedToInteger() throws InvalidStringException, InvalidIntegerException {
+        assertEquals(1022, Converter.String.toInteger("1.022"));
+    }
+
+    @Test
     public void stringToNegativeInteger() throws InvalidStringException, InvalidIntegerException {
         assertEquals(-22, Converter.String.toInteger("-22"));
     }
@@ -82,7 +87,7 @@ public class ConverterTest {
     public void integerValueToPositive() {
         assertEquals(22, Converter.Integer.toPositive(-22));
     }
-
+    
     @Test
     public void integerValueToNegative() {
         assertEquals(-22, Converter.Integer.toNegative(22));
@@ -92,6 +97,12 @@ public class ConverterTest {
     public void integerValueToString() {
         assertEquals("22", Converter.Integer.toString(22));
         assertEquals("-22", Converter.Integer.toString(-22));
+    }
+
+    @Test
+    public void integerValueToFormatedString() {
+        assertEquals("1.022", Converter.Integer.toString(1022));
+        assertEquals("-1.022", Converter.Integer.toString(-1022));
     }
 
     @Test

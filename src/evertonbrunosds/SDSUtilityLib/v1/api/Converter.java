@@ -50,7 +50,7 @@ public interface Converter {
         public static int toInteger(final java.lang.String value)
                 throws InvalidStringException, InvalidIntegerException {
             Filter.Integer.invalid(value);
-            return java.lang.Integer.parseInt(value);
+            return java.lang.Integer.parseInt(Filter.String.remove(value, '.'));
         }
 
         /**
@@ -100,7 +100,8 @@ public interface Converter {
          * @return Retorna valor inteiro convertido para String.
          */
         public static java.lang.String toString(final int value) {
-            return java.lang.String.valueOf(value);
+            final DecimalFormat decimalFormat = new DecimalFormat("#,###");
+            return decimalFormat.format(value);
         }
 
     }

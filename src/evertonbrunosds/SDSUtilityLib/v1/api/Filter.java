@@ -91,7 +91,7 @@ public interface Filter {
                 throws InvalidStringException, InvalidIntegerException {
             String.invalid(value);
             try {
-                java.lang.Integer.parseInt(value);
+                java.lang.Integer.parseInt(String.remove(value, '.'));
             } catch (final NumberFormatException ex) {
                 throw new InvalidIntegerException(value);
             }
