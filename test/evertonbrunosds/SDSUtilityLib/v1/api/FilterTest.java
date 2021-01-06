@@ -19,7 +19,6 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.api;
 
-import evertonbrunosds.SDSUtilityLib.v1.api.Filter;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDoubleException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidIntegerException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidStringException;
@@ -187,6 +186,14 @@ public class FilterTest {
         } catch (final InvalidStringException | InvalidDoubleException ex) {
             assertEquals("Invalid string.", ex.getMessage());
         }
+    }
+
+    @Test
+    public void removeChar() {
+        assertEquals("BC", Filter.String.remove("ABC", 'A'));
+        assertEquals("AC", Filter.String.remove("ABC", 'B'));
+        assertEquals("AB", Filter.String.remove("ABC", 'C'));
+        assertEquals("ABC", Filter.String.remove("ABC", 'D'));
     }
 
 }

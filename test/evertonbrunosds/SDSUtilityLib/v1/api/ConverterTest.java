@@ -19,7 +19,6 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.api;
 
-import evertonbrunosds.SDSUtilityLib.v1.api.Converter;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDoubleException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidIntegerException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidStringException;

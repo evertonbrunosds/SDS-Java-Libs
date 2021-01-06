@@ -52,6 +52,25 @@ public interface Filter {
             }
         }
 
+        /**
+         * Método responsável por remover dado caractere possívelmente contido em determinada String.
+         * @param oldString Refere-se a String antes da remoção de caractere possívelmente contido.
+         * @param character Refere-se ao caractere possívelmente contido.
+         * @return Retorna nova String com caractere possívelmente contido ausente.
+         */
+        public static java.lang.String remove(final java.lang.String oldString, final char character) {
+            if (oldString.contains(java.lang.String.valueOf(character))) {
+                java.lang.String newString = new java.lang.String();
+                for (int i = 0; i < oldString.length(); i++) {
+                    if (oldString.charAt(i) != character) {
+                        newString += oldString.charAt(i);
+                    }
+                }
+                return newString;
+            }
+            return oldString;
+        }
+
     }
 
     /**

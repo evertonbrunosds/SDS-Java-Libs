@@ -19,7 +19,6 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.util;
 
-import evertonbrunosds.SDSUtilityLib.v1.util.AVLTree;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.EntryNotFoundException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.KeyUsedException;
 import java.io.File;
