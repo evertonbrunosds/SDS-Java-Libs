@@ -21,6 +21,7 @@ package evertonbrunosds.SDSUtilityLib.v1.util;
 
 import evertonbrunosds.SDSUtilityLib.v1.api.Duplicable;
 import evertonbrunosds.SDSUtilityLib.v1.api.Converter;
+import java.io.Serializable;
 
 /**
  * Classe responsável por comportar-se como fluxo contábil.
@@ -28,7 +29,11 @@ import evertonbrunosds.SDSUtilityLib.v1.api.Converter;
  * @version 1.0
  * @since 1.0
  */
-public class AccountingFlow implements Duplicable<AccountingFlow> {
+public class AccountingFlow implements Duplicable<AccountingFlow>, Comparable<AccountingFlow>, Serializable {
+    /**
+     * Refere-se ao número de série do fluxo contábil.
+     */
+    private transient static final long serialVersionUID = -2225919978686491997L;
     /**
      * Refere-se ao valor do fluxo contábil.
      */
@@ -68,12 +73,26 @@ public class AccountingFlow implements Duplicable<AccountingFlow> {
     }
 
     /**
+     * Método responsável por efetuar comparação de um fluxo contábil com outro.
+     * @param af Refere-se ao fluxo contábil a ser comparado.
+     * @return Retorna resultado da comparação.
+     */
+    @Override
+    public int compareTo(final AccountingFlow af) {
+        return Double.compare(this.value, af.value);
+    }
+
+    /**
      * Classe responsável por comportar-se como receita contábil.
      * @author Everton Bruno Silva dos Santos.
      * @version 1.0
      * @since 1.0
      */
     public class AccountingRecipe extends AccountingFlow {
+        /**
+         * Refere-se ao número de série da receita contábil.
+         */
+        private transient static final long serialVersionUID = -2225199758686492020L;
 
         /**
          * Construtor responsável pelo instanciamento da receita contábil.
@@ -110,6 +129,10 @@ public class AccountingFlow implements Duplicable<AccountingFlow> {
      * @since 1.0
      */
     public class AccountingExpense extends AccountingFlow {
+        /**
+         * Refere-se ao número de série da despesa contábil.
+         */
+        private transient static final long serialVersionUID = -2225946958686492020L;
 
         /**
          * Construtor responsável pelo instanciamento da despesa contábil.
