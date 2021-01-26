@@ -98,5 +98,17 @@ public class AccountingExpenseTest {
         af2.setValue(1);
         assertEquals(0, af1.compareTo(af2));
     }
-    
+
+    @Test
+    public void paraStringFluxoContabilPositivo() {
+        accountingExpense = new AccountingExpense(1357.93);
+        assertEquals("-1.357,93", accountingExpense.toString());
+    }
+
+    @Test
+    public void paraStringFluxoContabilNegativo() {
+        accountingExpense = new AccountingExpense(-1357.93);
+        assertEquals("-1.357,93", accountingExpense.toString());
+    }
+
 }

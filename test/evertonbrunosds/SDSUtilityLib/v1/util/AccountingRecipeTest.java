@@ -99,4 +99,16 @@ public class AccountingRecipeTest {
         assertEquals(0, ar1.compareTo(ar2));
     }
 
+    @Test
+    public void paraStringReceitaContabilPositivo() {
+        accountingRecipe = new AccountingRecipe(1357.93);
+        assertEquals("1.357,93", accountingRecipe.toString());
+    }
+
+    @Test
+    public void paraStringReceitaContabilNegativo() {
+        accountingRecipe = new AccountingRecipe(-1357.93);
+        assertEquals("1.357,93", accountingRecipe.toString());
+    }
+
 }

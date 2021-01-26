@@ -99,4 +99,16 @@ public class AccountingFlowTest {
         assertEquals(0, af1.compareTo(af2));
     }
 
+    @Test
+    public void paraStringFluxoContabilPositivo() {
+        accountingFlow = new AccountingFlow(1357.93);
+        assertEquals("1.357,93", accountingFlow.toString());
+    }
+
+    @Test
+    public void paraStringFluxoContabilNegativo() {
+        accountingFlow = new AccountingFlow(-1357.93);
+        assertEquals("-1.357,93", accountingFlow.toString());
+    }
+
 }

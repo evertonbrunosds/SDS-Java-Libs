@@ -19,6 +19,7 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.util;
 
+import evertonbrunosds.SDSUtilityLib.v1.api.Converter;
 import evertonbrunosds.SDSUtilityLib.v1.api.Duplicable;
 import java.io.Serializable;
 
@@ -79,6 +80,15 @@ public class AccountingFlow implements Duplicable<AccountingFlow>, Comparable<Ac
     @Override
     public int compareTo(final AccountingFlow af) {
         return Double.compare(this.value, af.value);
+    }
+
+    /**
+     * Método responsável por converter para String o valor do fluxo contábil.
+     * @return Retorna em String o valor do fluxo contábil.
+     */
+    @Override
+    public String toString() {
+        return Converter.Double.toString(value);
     }
 
 }
