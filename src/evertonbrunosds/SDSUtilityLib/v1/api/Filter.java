@@ -19,9 +19,13 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.api;
 
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDateException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDoubleException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidIntegerException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidStringException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Interface responsável por fornecer a assinatura de objeto filtrante.
@@ -124,4 +128,27 @@ public interface Filter {
 
     }
 
+    /**
+     * Classe responsável por comportar-se como um filtro de data.
+     * @author Everton Bruno Silva dos Santos.
+     * @version 1.0
+     * @since 1.0
+     */
+    public static final class Date {
+        
+        public static void invalid(final java.lang.String string) throws InvalidDateException {
+            
+        }
+        
+        public static void invalid(final int day, final int month, final int year) throws InvalidDateException {
+            final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.setLenient(false);
+            final java.lang.String date = day + "/" + month + "/" + year;
+            try {
+                dateFormat.parse(date);
+            } catch (final ParseException ex) {
+                throw new InvalidDateException(date);
+            }
+        }
+    }
 }
