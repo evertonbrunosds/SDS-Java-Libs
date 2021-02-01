@@ -19,6 +19,7 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.api;
 
+import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDateException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDoubleException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidIntegerException;
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidStringException;
@@ -57,7 +58,7 @@ public class FilterTest {
     }
 
     @Test
-    public void validStringTester() {
+    public void validString() {
         try {
             Filter.String.invalid("valid string");
             assertTrue(true);
@@ -214,6 +215,17 @@ public class FilterTest {
         assertEquals("AC", Filter.String.remove("ABC", 'B'));
         assertEquals("AB", Filter.String.remove("ABC", 'C'));
         assertEquals("ABC", Filter.String.remove("ABC", 'D'));
+    }
+    
+    @Test
+    public void validDate() {
+        try {
+            Filter.Date.invalid("1/2/2021");
+            Filter.Date.invalid(1, 2, 2021);
+            assertTrue(true);
+        } catch (final InvalidStringException | InvalidDateException ex) {
+            fail();
+        }
     }
 
 }
