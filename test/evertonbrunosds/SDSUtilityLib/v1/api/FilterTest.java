@@ -218,14 +218,95 @@ public class FilterTest {
     }
     
     @Test
-    public void validDate() {
+    public void validDateInteger() {
         try {
-            Filter.Date.invalid("1/2/2021");
-            Filter.Date.invalid(1, 2, 2021);
+            Filter.Date.invalid(1, 1, 2020);
+            Filter.Date.invalid(31,12, 2020);
+            assertTrue(true);
+        } catch (final InvalidDateException ex) {
+            fail();
+        }
+    }
+
+    @Test
+    public void validDateString() {
+        try {
+            Filter.Date.invalid("1/1/2020");
+            Filter.Date.invalid("31/12/2021");
             assertTrue(true);
         } catch (final InvalidStringException | InvalidDateException ex) {
             fail();
         }
     }
+    
+    @Test
+    public void invalidNullDate() {
+        try {
+            Filter.Date.invalid(null);
+            fail();
+        } catch (final InvalidStringException | InvalidDateException ex) {
+            assertEquals("Invalid string.", ex.getMessage());
+        }
+    }
 
+    @Test
+    public void invalidEmptyDate() {
+        try {
+            Filter.Date.invalid("");
+            fail();
+        } catch (final InvalidStringException | InvalidDateException ex) {
+            assertEquals("Invalid string.", ex.getMessage());
+        }
+    }
+    
+    @Test
+    public void invalidMinDayInDateInteger() {
+        try {
+            Filter.Date.invalid(0, 12, 2020);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("0/12/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMinMonthInDateInteger() {
+        try {
+            Filter.Date.invalid(1, 0, 2020);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("1/0/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMinYearInDateInteger() {
+        try {
+            Filter.Date.invalid(1, 12, 0);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("1/12/0", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMaxDayInDateInteger() {
+        try {
+            Filter.Date.invalid(32, 12, 2020);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("32/12/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMaxMonthInDateInteger() {
+        try {
+            Filter.Date.invalid(1, 13, 2020);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("1/13/2020", ex.getDate());
+        }
+    }
+    
 }

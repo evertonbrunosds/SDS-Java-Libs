@@ -25,7 +25,7 @@ package evertonbrunosds.SDSUtilityLib.v1.exceptions;
  * @version 1.0
  * @since 1.0
  */
-public class InvalidDateException extends RuntimeException {
+public class InvalidDateException extends Exception {
     /**
      * Refere-se ao número de série da exceção de data inválida.
      */
@@ -40,6 +40,7 @@ public class InvalidDateException extends RuntimeException {
      * @param date Refere-se a data caracterizada como inválida.
      */
     public InvalidDateException(final String date) {
+        super("Invalid date.");
         this.date = date;
     }
 
