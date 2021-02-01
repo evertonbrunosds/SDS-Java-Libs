@@ -270,7 +270,7 @@ public class FilterTest {
     }
     
     @Test
-    public void invalidMinMonthInDateInteger() {
+    public void invalidMinMonthInDateInteger() throws InvalidStringException {
         try {
             Filter.Date.invalid(1, 0, 2020);
             fail();
@@ -303,6 +303,56 @@ public class FilterTest {
     public void invalidMaxMonthInDateInteger() {
         try {
             Filter.Date.invalid(1, 13, 2020);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("1/13/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMinDayInDateString() throws InvalidStringException {
+        try {
+            Filter.Date.invalid("0/12/2020");
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("0/12/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMinMonthInDateString() throws InvalidStringException {
+        try {
+            Filter.Date.invalid("1/0/2020");
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("1/0/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMinYearInDateString() throws InvalidStringException {
+        try {
+            Filter.Date.invalid("1/12/0");
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("1/12/0", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMaxDayInDateString() throws InvalidStringException {
+        try {
+            Filter.Date.invalid("32/12/2020");
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("32/12/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void invalidMaxMonthInDateString() throws InvalidStringException {
+        try {
+            Filter.Date.invalid("1/13/2020");
             fail();
         } catch (final InvalidDateException ex) {
             assertEquals("1/13/2020", ex.getDate());
