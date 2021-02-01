@@ -33,45 +33,102 @@ import java.util.Calendar;
  * @since 1.0
  */
 public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
+    /**
+     * Refere-se ao número de série da data.
+     */
+    private static final long serialVersionUID = 9140421242376164174L;
+    /**
+     * Refere-se ao dia contido na data.
+     */
     private int day;
+    /**
+     * Refere-se ao mês contido na data.
+     */
     private int month;
+    /**
+     * Refere-se ao ano contido na data.
+     */
     private int year;
-    
+
+    /**
+     * Construtor responsável pelo instanciamento da data.
+     */
     public Date() {
         day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         year = Calendar.getInstance().get(Calendar.YEAR);
     }
-    
-    public Date(int day, int month, int year) throws InvalidDateException {
+
+    /**
+     * Construtor responsável pelo instanciamento da data.
+     * @param day   Refere-se ao dia contido na data.
+     * @param month Refere-se ao mês contido na data.
+     * @param year  Refere-se ao ano contido na data.
+     * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
+     */
+    public Date(final int day, final int month, final int year) throws InvalidDateException {
         update(day, month, year);
     }
 
+    /**
+     * Método responsável por retornar o dia contido na data.
+     * @return Retorna o dia contido na data.
+     */
     public int getDay() {
         return day;
     }
 
-    public void setDay(int day) throws InvalidDateException {
+    /**
+     * Método responsável por alterar o dia contido na data.
+     * @param day Refere-se ao dia contido na data.
+     * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
+     */
+    public void setDay(final int day) throws InvalidDateException {
         update(day, month, year);
     }
 
+    /**
+     * Método responsável por retornar o mês contido na data.
+     * @return Retorna o mês contido na data.
+     */
     public int getMonth() {
         return month;
     }
 
-    public void setMonth(int month) throws InvalidDateException {
+    /**
+     * Método responsável por alterar o mês contido na data.
+     * @param month Refere-se ao mês contido na data.
+     * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
+     */
+    public void setMonth(final int month) throws InvalidDateException {
         update(day, month, year);
     }
 
+    /**
+     * Método responsável por retornar o ano contido na data.
+     * @return Retorna o ano contido na data.
+     */
     public int getYear() {
         return year;
     }
 
-    public void setYear(int year) throws InvalidDateException {
+    /**
+     * Método responsável por alterar o ano contido na data.
+     * @param year Refere-se ao ano contido na data.
+     * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
+     */
+    public void setYear(final int year) throws InvalidDateException {
         update(day, month, year);
     }
-    
-    private void update(int day, int month, int year) throws InvalidDateException {
+
+    /**
+     * Método responsável por atualizar os dados contidos na data.
+     * @param day   Refere-se ao dia contido na data.
+     * @param month Refere-se ao mês contido na data.
+     * @param year  Refere-se ao ano contido na data.
+     * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
+     */
+    public void update(int day, int month, int year) throws InvalidDateException {
         day = Converter.Integer.toPositive(day);
         month = Converter.Integer.toPositive(month);
         year = Converter.Integer.toPositive(year);
@@ -81,6 +138,10 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
         this.year = year;
     }
 
+    /**
+     * Método responsável por duplicar a data.
+     * @return Retorna data duplicata.
+     */
     @Override
     public Date duplicate() {
         final Date date = new Date();
@@ -89,7 +150,13 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
         date.year = year;
         return date;
     }
-    
+
+    /**
+     * Método responsável por efetuar comparações entre duas datas.
+     * @param x Refere-se a primeira data.
+     * @param y Refere-se a segunda data.
+     * @return resultado da comparação.
+     */
     public static int compare(final Date x, final Date y) {
         final int r1 = Integer.compare(x.day, y.day);
         final int r2 = Integer.compare(x.month, y.month);
@@ -97,9 +164,33 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
         return r3 != 0 ? r3 : r2 != 0 ? r2 : r1;
     }
 
+    /**
+     * Método responsável por efetuar comparação de uma data com outra.
+     * @param o Refere-se a data a ser comparada.
+     * @return Retorna resultado da comparação.
+     */
     @Override
     public int compareTo(final Date o) {
         return compare(this, o);
     }
-    
+
+    /**
+     * Método responsável por converter para String de no mínimo dois dígitos,
+     * um dado número inteiro.
+     * @param i Refere-se ao dado número inteiro.
+     * @return Retorna String de no mínimo dois dígitos.
+     */
+    private static String toString(final int i) {
+        return i < 10 ? "0" + i : "" + i;
+    }
+
+    /**
+     * Método responsável por converter para String os dados da data.
+     * @return Retorna em String os dados da data.
+     */
+    @Override
+    public String toString() {
+        return toString(day) + "/" + toString(month) + "/" + toString(year);
+    }
+
 }
