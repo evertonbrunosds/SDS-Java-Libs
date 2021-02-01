@@ -135,11 +135,30 @@ public interface Filter {
      * @since 1.0
      */
     public static final class Date {
-        
-        public static void invalid(final java.lang.String string) throws InvalidDateException {
-            
+
+        /**
+         * Método responsável por filtrar uma data possívelmente inválida.
+         * @param date Refere-se a dita data possívelmente inválida.
+         * @throws InvalidStringException Exceção lançada no caso da String ser inválida.
+         * @throws InvalidDateException   Exceção lançada no caso da data ser inválida.
+         */
+        public static void invalid(final java.lang.String date) throws InvalidStringException, InvalidDateException {
+            final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.setLenient(false);
+            try {
+                dateFormat.parse(date);
+            } catch (final ParseException ex) {
+                throw new InvalidDateException(date);
+            }
         }
-        
+
+        /**
+         * Método responsável por filtrar uma data possívelmente inválida.
+         * @param day   Refere-se ao dia contido na data.
+         * @param month Refere-se ao mês contido na data.
+         * @param year  Refere-se ao ano contido na data.
+         * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
+         */
         public static void invalid(final int day, final int month, final int year) throws InvalidDateException {
             final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             dateFormat.setLenient(false);
