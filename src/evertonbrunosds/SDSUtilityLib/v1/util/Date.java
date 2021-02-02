@@ -54,9 +54,7 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
      * Construtor responsável pelo instanciamento da data.
      */
     public Date() {
-        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        year = Calendar.getInstance().get(Calendar.YEAR);
+        update();
     }
 
     /**
@@ -67,7 +65,7 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
      * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
      */
     public Date(final int day, final int month, final int year) throws InvalidDateException {
-        update(day, month, year);
+        set(day, month, year);
     }
 
     /**
@@ -84,7 +82,7 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
      * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
      */
     public void setDay(final int day) throws InvalidDateException {
-        update(day, month, year);
+        set(day, month, year);
     }
 
     /**
@@ -101,7 +99,7 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
      * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
      */
     public void setMonth(final int month) throws InvalidDateException {
-        update(day, month, year);
+        set(day, month, year);
     }
 
     /**
@@ -118,17 +116,17 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
      * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
      */
     public void setYear(final int year) throws InvalidDateException {
-        update(day, month, year);
+        set(day, month, year);
     }
 
     /**
-     * Método responsável por atualizar os dados contidos na data.
+     * Método responsável por alterar o dia, mês e ano contidos na data.
      * @param day   Refere-se ao dia contido na data.
      * @param month Refere-se ao mês contido na data.
      * @param year  Refere-se ao ano contido na data.
      * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
      */
-    public final void update(int day, int month, int year) throws InvalidDateException {
+    public final void set(int day, int month, int year) throws InvalidDateException {
         day = Converter.Integer.toPositive(day);
         month = Converter.Integer.toPositive(month);
         year = Converter.Integer.toPositive(year);
@@ -138,6 +136,14 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
         this.year = year;
     }
 
+    /**
+     * Método responsável por atualizar os dados contidos na data.
+     */
+    public final void update() {
+        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        year = Calendar.getInstance().get(Calendar.YEAR);
+    }
     /**
      * Método responsável por duplicar a data.
      * @return Retorna data duplicata.
