@@ -265,7 +265,7 @@ public class FilterTest {
             Filter.Date.invalid(0, 12, 2020);
             fail();
         } catch (final InvalidDateException ex) {
-            assertEquals("0/12/2020", ex.getDate());
+            assertEquals("00/12/2020", ex.getDate());
         }
     }
     
@@ -275,7 +275,7 @@ public class FilterTest {
             Filter.Date.invalid(1, 0, 2020);
             fail();
         } catch (final InvalidDateException ex) {
-            assertEquals("1/0/2020", ex.getDate());
+            assertEquals("01/00/2020", ex.getDate());
         }
     }
     
@@ -285,7 +285,7 @@ public class FilterTest {
             Filter.Date.invalid(1, 12, 0);
             fail();
         } catch (final InvalidDateException ex) {
-            assertEquals("1/12/0", ex.getDate());
+            assertEquals("01/12/00", ex.getDate());
         }
     }
     
@@ -305,7 +305,7 @@ public class FilterTest {
             Filter.Date.invalid(1, 13, 2020);
             fail();
         } catch (final InvalidDateException ex) {
-            assertEquals("1/13/2020", ex.getDate());
+            assertEquals("01/13/2020", ex.getDate());
         }
     }
     

@@ -135,6 +135,16 @@ public interface Filter {
      * @since 1.0
      */
     public static final class Date {
+        
+        /**
+         * Método responsável por converter para String de no mínimo dois dígitos,
+         * um dado número inteiro.
+         * @param i Refere-se ao dado número inteiro.
+         * @return Retorna String de no mínimo dois dígitos.
+         */
+        private static java.lang.String toString(final int i) {
+            return i < 10 ? "0" + i : "" + i;
+        }
 
         /**
          * Método responsável por filtrar uma data possívelmente inválida.
@@ -155,7 +165,7 @@ public interface Filter {
          * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
          */
         public static void invalid(final int day, final int month, final int year) throws InvalidDateException {
-            verify(day + "/" + month + "/" + year);
+            verify(toString(day) + "/" + toString(month) + "/" + toString(year));
         }
 
         /**

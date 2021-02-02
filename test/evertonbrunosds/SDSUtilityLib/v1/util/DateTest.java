@@ -21,6 +21,8 @@ package evertonbrunosds.SDSUtilityLib.v1.util;
 
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDateException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -111,4 +113,89 @@ public class DateTest {
         assertEquals(1997, date.getYear());
         assertEquals("01/02/1997", date.toString());
     }
+    
+    @Test
+    public void set() throws InvalidDateException {
+        final Date date = new Date(1,2,2020);
+        assertEquals(1, date.getDay());
+        assertEquals(2, date.getMonth());
+        assertEquals(2020, date.getYear());
+        assertEquals("01/02/2020", date.toString());
+        date.set(18, 12, 2010);
+        assertEquals(18, date.getDay());
+        assertEquals(12, date.getMonth());
+        assertEquals(2010, date.getYear());
+        assertEquals("18/12/2010", date.toString());
+    }
+    
+        @Test
+    public void makeInvalidDate() {
+        try {
+            final Date date = new Date(30,2,2020);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("Invalid date.", ex.getMessage());
+            assertEquals("30/02/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void setInvalidDay() throws InvalidDateException {
+        final Date date = new Date(1,2,2020);
+        assertEquals(1, date.getDay());
+        assertEquals(2, date.getMonth());
+        assertEquals(2020, date.getYear());
+        assertEquals("01/02/2020", date.toString());
+        try {
+            date.setDay(32);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("Invalid date.", ex.getMessage());
+            assertEquals("32/02/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void setInvalidMonth() throws InvalidDateException {
+        final Date date = new Date(1,2,2020);
+        assertEquals(1, date.getDay());
+        assertEquals(2, date.getMonth());
+        assertEquals(2020, date.getYear());
+        assertEquals("01/02/2020", date.toString());
+        try {
+            date.setMonth(13);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("Invalid date.", ex.getMessage());
+            assertEquals("01/13/2020", ex.getDate());
+        }
+    }
+    
+    @Test
+    public void setInvalid() throws InvalidDateException {
+        final Date date = new Date(1,2,2020);
+        assertEquals(1, date.getDay());
+        assertEquals(2, date.getMonth());
+        assertEquals(2020, date.getYear());
+        assertEquals("01/02/2020", date.toString());
+        try {
+            date.set(32,16,2021);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("Invalid date.", ex.getMessage());
+            assertEquals("32/16/2021", ex.getDate());
+        }
+        try {
+            date.set(07,14,2019);
+            fail();
+        } catch (final InvalidDateException ex) {
+            assertEquals("Invalid date.", ex.getMessage());
+            assertEquals("07/14/2019", ex.getDate());
+        }
+        assertEquals(1, date.getDay());
+        assertEquals(2, date.getMonth());
+        assertEquals(2020, date.getYear());
+        assertEquals("01/02/2020", date.toString());
+    }
+    
 }
