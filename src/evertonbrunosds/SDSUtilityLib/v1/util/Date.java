@@ -128,7 +128,7 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
      * @param year  Refere-se ao ano contido na data.
      * @throws InvalidDateException Exceção lançada no caso da data ser inválida.
      */
-    public void update(int day, int month, int year) throws InvalidDateException {
+    public final void update(int day, int month, int year) throws InvalidDateException {
         day = Converter.Integer.toPositive(day);
         month = Converter.Integer.toPositive(month);
         year = Converter.Integer.toPositive(year);
