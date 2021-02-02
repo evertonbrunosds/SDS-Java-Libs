@@ -21,8 +21,6 @@ package evertonbrunosds.SDSUtilityLib.v1.util;
 
 import evertonbrunosds.SDSUtilityLib.v1.exceptions.InvalidDateException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -196,6 +194,43 @@ public class DateTest {
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
         assertEquals("01/02/2020", date.toString());
+    }
+    
+    @Test
+    public void duplicate() throws InvalidDateException {
+        final Date date = new Date(1,2,2020);
+        final Date date2 = date.duplicate();
+        date2.set(5, 10, 2010);
+        assertEquals(1, date.getDay());
+        assertEquals(2, date.getMonth());
+        assertEquals(2020, date.getYear());
+        assertEquals("01/02/2020", date.toString());
+        assertEquals(5, date2.getDay());
+        assertEquals(10, date2.getMonth());
+        assertEquals(2010, date2.getYear());
+        assertEquals("05/10/2010", date2.toString());
+    }
+    
+    @Test
+    public void compare() throws InvalidDateException {
+        final Date d1 = new Date(1,2,2020);
+        final Date d2 = d1.duplicate();
+        assertEquals(0, Date.compare(d1, d2));
+        d1.setDay(2);
+        assertEquals(1, Date.compare(d1, d2));
+        d2.setDay(3);
+        assertEquals(-1, Date.compare(d1, d2));
+    }
+    
+    @Test
+    public void compareTo() throws InvalidDateException {
+        final Date d1 = new Date(1,2,2020);
+        final Date d2 = d1.duplicate();
+        assertEquals(0, d1.compareTo(d2));
+        d1.setDay(2);
+        assertEquals(1, d1.compareTo(d2));
+        d2.setDay(3);
+        assertEquals(-1, d1.compareTo(d2));
     }
     
 }
