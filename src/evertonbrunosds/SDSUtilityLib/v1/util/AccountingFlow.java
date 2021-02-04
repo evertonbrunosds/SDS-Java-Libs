@@ -95,7 +95,7 @@ public class AccountingFlow implements Duplicable<AccountingFlow>, Comparable<Ac
      * Método responsável por efetuar comparações entre dois fluxos contábeis.
      * @param x Refere-se ao primeiro fluxo contábil.
      * @param y Refere-se ao segundo fluxo contábil.
-     * @return resultado da comparação.
+     * @return Retorna o resultado da comparação.
      */
     public static int compare(final AccountingFlow x, final AccountingFlow y) {
         return Double.compare(x.value, y.value);

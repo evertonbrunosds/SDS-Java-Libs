@@ -30,7 +30,7 @@ import java.io.Serializable;
  * @param <I> Refere-se ao tipo do item da requisição.
  * @since 1.0
  */
-public abstract class AbstractRequest<I> implements Duplicable<AccountingFlow>, Comparable<AccountingFlow>, Serializable {
+public abstract class AbstractRequest<I> implements Duplicable<AbstractRequest<I>>, Comparable<AbstractRequest<I>>, Serializable {
     /**
      * Refere-se ao número de série da requisição abstrata.
      */
