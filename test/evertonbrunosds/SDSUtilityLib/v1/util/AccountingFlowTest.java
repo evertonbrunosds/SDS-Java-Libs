@@ -91,15 +91,6 @@ public class AccountingFlowTest {
     }
 
     @Test
-    public void comparaFluxoContabil() {
-        final AccountingFlow af1 = new AccountingFlow(1);
-        final AccountingFlow af2 = new AccountingFlow(2);
-        assertEquals(-1, af1.compareTo(af2));
-        af2.setValue(1);
-        assertEquals(0, af1.compareTo(af2));
-    }
-
-    @Test
     public void paraStringFluxoContabilPositivo() {
         accountingFlow = new AccountingFlow(1357.93);
         assertEquals("1.357,93", accountingFlow.toString());
@@ -109,6 +100,40 @@ public class AccountingFlowTest {
     public void paraStringFluxoContabilNegativo() {
         accountingFlow = new AccountingFlow(-1357.93);
         assertEquals("-1.357,93", accountingFlow.toString());
+    }
+
+    @Test
+    public void compareNotNullWithNotNull() {
+        fail();
+    }
+
+    @Test
+    public void compareNullWithNull() {
+        fail();
+    }
+
+    @Test
+    public void compareNotNullWithNull() {
+        fail();
+    }
+
+    @Test
+    public void compareNullWithNotNull() {
+        fail();
+    }
+
+    @Test
+    public void compareTo() {
+        final AccountingFlow af1 = new AccountingFlow(1);
+        final AccountingFlow af2 = new AccountingFlow(2);
+        assertEquals(-1, af1.compareTo(af2));
+        af2.setValue(1);
+        assertEquals(0, af1.compareTo(af2));
+    }
+
+    @Test
+    public void compareToNull() {
+        fail();
     }
 
 }
