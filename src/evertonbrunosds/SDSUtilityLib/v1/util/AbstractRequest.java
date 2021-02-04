@@ -27,9 +27,10 @@ import java.io.Serializable;
  * Classe responsável por comportar-se como requisição abstrata.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
+ * @param <I> Refere-se ao tipo do item da requisição.
  * @since 1.0
  */
-public abstract class AbstractRequest implements Duplicable<AccountingFlow>, Comparable<AccountingFlow>, Serializable {
+public abstract class AbstractRequest<I> implements Duplicable<AccountingFlow>, Comparable<AccountingFlow>, Serializable {
     /**
      * Refere-se ao número de série da requisição abstrata.
      */
@@ -38,13 +39,35 @@ public abstract class AbstractRequest implements Duplicable<AccountingFlow>, Com
      * Refere-se a quantidade da requisição.
      */
     private double amount;
+    /**
+     * Refere-se ao item requisitado.
+     */
+    private I item;
 
     /**
      * Construtor responsável por possibilitar o instanciamento das subclasses da requisição abstrata.
      * @param amount Refere-se a quantidade da requisição.
+     * @param item   Refere-se ao item requisitado.
      */
-    public AbstractRequest(final double amount) {
+    public AbstractRequest(final double amount, final I item) {
         this.amount = amount;
+        this.item = item;
+    }
+
+    /**
+     * Método responsável por retornar o item requisitado.
+     * @return Retorna o item requisitado.
+     */
+    public I getItem() {
+        return item;
+    }
+
+    /**
+     * Método responsável por alterar o item requisitado.
+     * @param item Refere-se ao item requisitado.
+     */
+    public void setItem(final I item) {
+        this.item = item;
     }
 
     /**
