@@ -212,7 +212,7 @@ public class DateTest {
     }
     
     @Test
-    public void compare() throws InvalidDateException {
+    public void compareNotNullWithNotNull() throws InvalidDateException {
         final Date d1 = new Date(1,2,2020);
         final Date d2 = d1.duplicate();
         assertEquals(0, Date.compare(d1, d2));
@@ -220,6 +220,23 @@ public class DateTest {
         assertEquals(1, Date.compare(d1, d2));
         d2.setDay(3);
         assertEquals(-1, Date.compare(d1, d2));
+    }
+    
+    @Test
+    public void compareNullWithNull() throws InvalidDateException {
+        assertEquals(0, Date.compare(null, null));
+    }
+    
+    @Test
+    public void compareNotNullWithNull() throws InvalidDateException {
+        final Date d1 = new Date(1,2,2020);
+        assertEquals(1, Date.compare(d1, null));
+    }
+    
+    @Test
+    public void compareNullWithNotNull() throws InvalidDateException {
+        final Date d1 = new Date(1,2,2020);
+        assertEquals(-1, Date.compare(null, d1));
     }
     
     @Test
@@ -231,6 +248,12 @@ public class DateTest {
         assertEquals(1, d1.compareTo(d2));
         d2.setDay(3);
         assertEquals(-1, d1.compareTo(d2));
+    }
+    
+    @Test
+    public void compareToNull() throws InvalidDateException {
+        final Date d1 = new Date(1,2,2020);
+        assertEquals(1, d1.compareTo(null));
     }
     
 }

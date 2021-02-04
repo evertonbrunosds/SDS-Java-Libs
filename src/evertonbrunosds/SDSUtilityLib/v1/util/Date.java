@@ -164,10 +164,14 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
      * @return resultado da comparação.
      */
     public static int compare(final Date x, final Date y) {
-        final int r1 = Integer.compare(x.day, y.day);
-        final int r2 = Integer.compare(x.month, y.month);
-        final int r3 = Integer.compare(x.year, y.year);
-        return r3 != 0 ? r3 : r2 != 0 ? r2 : r1;
+        if (x != null && y != null) {
+            final int r1 = Integer.compare(x.day, y.day);
+            final int r2 = Integer.compare(x.month, y.month);
+            final int r3 = Integer.compare(x.year, y.year);
+            return r3 != 0 ? r3 : r2 != 0 ? r2 : r1;
+        } else {
+            return x != null && y == null ? 1 : x == null && y != null ? -1 : 0;
+        }
     }
 
     /**
