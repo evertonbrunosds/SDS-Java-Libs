@@ -144,6 +144,7 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
         month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         year = Calendar.getInstance().get(Calendar.YEAR);
     }
+
     /**
      * Método responsável por duplicar a data.
      * @return Retorna data duplicata.
@@ -185,8 +186,7 @@ public class Date implements Duplicable<Date>, Comparable<Date>, Serializable {
     }
 
     /**
-     * Método responsável por converter para String de no mínimo dois dígitos,
-     * um dado número inteiro.
+     * Método responsável por converter para String de no mínimo dois dígitos, um dado número inteiro.
      * @param i Refere-se ao dado número inteiro.
      * @return Retorna String de no mínimo dois dígitos.
      */
