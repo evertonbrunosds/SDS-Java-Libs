@@ -19,13 +19,15 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.util;
 
+import evertonbrunosds.SDSUtilityLib.v1.api.Converter;
+
 /**
  * Classe responsável por comportar-se como requisição de receita contábil.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
  * @since 1.0
  */
-public class AccountingRecipeRequisition extends AccountingFlowRequisition {
+public class AccountingRecipeRequisition extends AbstractRequest<AccountingRecipe> {
     /**
      * Refere-se ao número de série da requisição de receita contábil.
      */
@@ -37,7 +39,25 @@ public class AccountingRecipeRequisition extends AccountingFlowRequisition {
      * @param item   Refere-se a receita contábil.
      */
     public AccountingRecipeRequisition(final double amount, final AccountingRecipe item) {
-        super(amount, item);
+        super(Converter.Double.toPositive(amount), item);
+    }
+
+    /**
+     * Método responsável por alterar a quantidade da requisição de receita contábil.
+     * @param amount Refere-se a quantidade da requisição de receita contábil.
+     */
+    @Override
+    public void setAmount(final double amount) {
+        super.setAmount(Converter.Double.toPositive(amount));
+    }
+
+    /**
+     * Método responsável por retornar o valor da requisição de receita contábil.
+     * @return Retorna o valor da requisição de receita contábil.
+     */
+    @Override
+    public double getValue() {
+        return getItem() == null ? 0 : getAmount() * getItem().getValue();
     }
 
     /**
@@ -46,16 +66,36 @@ public class AccountingRecipeRequisition extends AccountingFlowRequisition {
      */
     @Override
     public AccountingRecipeRequisition duplicate() {
-        return (AccountingRecipeRequisition) super.duplicate();
+        if (getItem() == null) {
+            return new AccountingRecipeRequisition(getAmount(), null);
+        } else {
+            return new AccountingRecipeRequisition(getAmount(), getItem().duplicate());
+        }
     }
 
     /**
-     * Método responsável por retornar a receita contábil.
-     * @return Retorna a receita contábil.
+     * Método responsável por efetuar comparações entre duas requisições de receita contábil.
+     * @param x Refere-se a primeira receita contábil.
+     * @param y Refere-se a segunda receita contábil.
+     * @return Retorna o resultado da comparação.
+     */
+    public static int compare(final AbstractRequest<AccountingRecipe> x, final AbstractRequest<AccountingRecipe> y) {
+        if (x != null && y != null) {
+            final int result = AccountingRecipe.compare(x.getItem(), y.getItem());
+            return result != 0 ? result : Double.compare(x.getAmount(), y.getAmount());
+        } else {
+            return x != null && y == null ? 1 : x == null && y != null ? -1 : 0;
+        }
+    }
+
+    /**
+     * Método responsável por efetuar comparação de uma requisição de receita contábil com outra.
+     * @param ar Refere-se a requisição de receita contábil a ser comparada.
+     * @return Retorna resultado da comparação.
      */
     @Override
-    public AccountingRecipe getItem() {
-        return (AccountingRecipe) super.getItem();
+    public int compareTo(final AbstractRequest<AccountingRecipe> ar) {
+        return compare(this, ar);
     }
 
 }
