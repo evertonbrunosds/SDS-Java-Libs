@@ -146,7 +146,7 @@ public class FilterTest {
             assertEquals("Invalid string.", ex.getMessage());
         }
     }
-    
+
     @Test
     public void validFormatedDouble() {
         try {
@@ -216,12 +216,12 @@ public class FilterTest {
         assertEquals("AB", Filter.String.remove("ABC", 'C'));
         assertEquals("ABC", Filter.String.remove("ABC", 'D'));
     }
-    
+
     @Test
     public void validDateInteger() {
         try {
             Filter.Date.invalid(1, 1, 2020);
-            Filter.Date.invalid(31,12, 2020);
+            Filter.Date.invalid(31, 12, 2020);
             assertTrue(true);
         } catch (final InvalidDateException ex) {
             fail();
@@ -238,7 +238,7 @@ public class FilterTest {
             fail();
         }
     }
-    
+
     @Test
     public void invalidNullDate() {
         try {
@@ -258,7 +258,7 @@ public class FilterTest {
             assertEquals("Invalid string.", ex.getMessage());
         }
     }
-    
+
     @Test
     public void invalidMinDayInDateInteger() {
         try {
@@ -268,7 +268,7 @@ public class FilterTest {
             assertEquals("00/12/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMinMonthInDateInteger() throws InvalidStringException {
         try {
@@ -278,7 +278,7 @@ public class FilterTest {
             assertEquals("01/00/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMinYearInDateInteger() {
         try {
@@ -288,7 +288,7 @@ public class FilterTest {
             assertEquals("01/12/00", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMaxDayInDateInteger() {
         try {
@@ -298,7 +298,7 @@ public class FilterTest {
             assertEquals("32/12/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMaxMonthInDateInteger() {
         try {
@@ -308,7 +308,7 @@ public class FilterTest {
             assertEquals("01/13/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMinDayInDateString() throws InvalidStringException {
         try {
@@ -318,7 +318,7 @@ public class FilterTest {
             assertEquals("0/12/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMinMonthInDateString() throws InvalidStringException {
         try {
@@ -328,7 +328,7 @@ public class FilterTest {
             assertEquals("1/0/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMinYearInDateString() throws InvalidStringException {
         try {
@@ -338,7 +338,7 @@ public class FilterTest {
             assertEquals("1/12/0", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMaxDayInDateString() throws InvalidStringException {
         try {
@@ -348,7 +348,7 @@ public class FilterTest {
             assertEquals("32/12/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void invalidMaxMonthInDateString() throws InvalidStringException {
         try {
@@ -358,5 +358,5 @@ public class FilterTest {
             assertEquals("1/13/2020", ex.getDate());
         }
     }
-    
+
 }

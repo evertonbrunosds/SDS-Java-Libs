@@ -33,22 +33,22 @@ import static org.junit.Assert.*;
  * @since 1.0
  */
 public class AccountingRecipeRequisitionTest {
-    
+
     public AccountingRecipeRequisitionTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -58,13 +58,13 @@ public class AccountingRecipeRequisitionTest {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(-2.5));
         assertEquals(2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void criandoRequisicaoDeReceitaContabilComValorPositivo() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(2.5));
         assertEquals(2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void alterandoReceitaContabilParaValorNegativoEmRequisicaoDeReceitaContabil() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(2.5));
@@ -72,7 +72,7 @@ public class AccountingRecipeRequisitionTest {
         afr.getItem().setValue(-2.5);
         assertEquals(2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void alterandoReceitaContabilParaValorPositivoEmRequisicaoDeReceitaContabil() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(-2.5));
@@ -80,7 +80,7 @@ public class AccountingRecipeRequisitionTest {
         afr.getItem().setValue(2.5);
         assertEquals(2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void verificaIdependênciaDeRequisicaoReceitaContabilDuplicado() {
         final AccountingRecipeRequisition afr1 = new AccountingRecipeRequisition(1, new AccountingRecipe(-2.5));
@@ -94,19 +94,19 @@ public class AccountingRecipeRequisitionTest {
         assertEquals(2.5, afr1.getItem().getValue(), 0.0);
         assertEquals(500, afr2.getItem().getValue(), 0.0);
     }
-    
+
     @Test
     public void paraStringRequisicaoDeReceitaContabilPositivo() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(1357.93));
         assertEquals("1.357,93", afr.toString());
     }
-    
+
     @Test
     public void paraStringRequisicaoDeReceitaContabilNegativo() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(-1357.93));
         assertEquals("1.357,93", afr.toString());
     }
-    
+
     @Test
     public void mudeParaPositivoQuantidadesNegativas() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(-5, new AccountingRecipe(-1357.93));
@@ -114,7 +114,7 @@ public class AccountingRecipeRequisitionTest {
         afr.setAmount(-7);
         assertEquals(7, afr.getAmount(), 0.0);
     }
-    
+
     @Test
     public void quantidadeInterfereNoValorFinalDaRequisicaoDeReceitaContabil() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(5, new AccountingRecipe(-300.93));
@@ -127,9 +127,9 @@ public class AccountingRecipeRequisitionTest {
         assertEquals(300.93, afr.getItem().getValue(), 0.00);
         assertEquals(601.86, afr.getValue(), 0.00);
         assertEquals("601,86", afr.toString());
-        
+
     }
-    
+
     @Test
     public void compareNotNullWithNotNull() {
         final AccountingRecipeRequisition afr1 = new AccountingRecipeRequisition(5, new AccountingRecipe(-300.93));

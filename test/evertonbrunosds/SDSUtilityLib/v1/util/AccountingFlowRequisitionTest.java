@@ -33,22 +33,22 @@ import static org.junit.Assert.*;
  * @since 1.0
  */
 public class AccountingFlowRequisitionTest {
-    
+
     public AccountingFlowRequisitionTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -58,13 +58,13 @@ public class AccountingFlowRequisitionTest {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(-2.5));
         assertEquals(-2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void criandoRequisicaoDeFluxoContabilComValorPositivo() {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(2.5));
         assertEquals(2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void alterandoFluxoContabilParaValorNegativoEmRequisicaoDeFluxoContabil() {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(2.5));
@@ -72,7 +72,7 @@ public class AccountingFlowRequisitionTest {
         afr.getItem().setValue(-2.5);
         assertEquals(-2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void alterandoFluxoContabilParaValorPositivoEmRequisicaoDeFluxoContabil() {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(-2.5));
@@ -80,7 +80,7 @@ public class AccountingFlowRequisitionTest {
         afr.getItem().setValue(2.5);
         assertEquals(2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void verificaIdependênciaDeRequisicaoFluxoContabilDuplicado() {
         final AccountingFlowRequisition afr1 = new AccountingFlowRequisition(1, new AccountingFlow(-2.5));
@@ -94,19 +94,19 @@ public class AccountingFlowRequisitionTest {
         assertEquals(-2.5, afr1.getItem().getValue(), 0.0);
         assertEquals(500, afr2.getItem().getValue(), 0.0);
     }
-    
+
     @Test
     public void paraStringRequisicaoDeFluxoContabilPositivo() {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(1357.93));
         assertEquals("1.357,93", afr.toString());
     }
-    
+
     @Test
     public void paraStringRequisicaoDeFluxoContabilNegativo() {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(-1357.93));
         assertEquals("-1.357,93", afr.toString());
     }
-    
+
     @Test
     public void mudeParaPositivoQuantidadesNegativas() {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(-5, new AccountingFlow(-1357.93));
@@ -114,7 +114,7 @@ public class AccountingFlowRequisitionTest {
         afr.setAmount(-7);
         assertEquals(7, afr.getAmount(), 0.0);
     }
-    
+
     @Test
     public void quantidadeInterfereNoValorFinalDaRequisicaoDeFluxoContabil() {
         final AccountingFlowRequisition afr = new AccountingFlowRequisition(5, new AccountingFlow(-300.93));
@@ -127,9 +127,9 @@ public class AccountingFlowRequisitionTest {
         assertEquals(-300.93, afr.getItem().getValue(), 0.00);
         assertEquals(-601.86, afr.getValue(), 0.00);
         assertEquals("-601,86", afr.toString());
-        
+
     }
-    
+
     @Test
     public void compareNotNullWithNotNull() {
         final AccountingFlowRequisition afr1 = new AccountingFlowRequisition(5, new AccountingFlow(-300.93));

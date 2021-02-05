@@ -33,22 +33,22 @@ import static org.junit.Assert.*;
  * @since 1.0
  */
 public class AccountingExpenseRequisitionTest {
-    
+
     public AccountingExpenseRequisitionTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -58,13 +58,13 @@ public class AccountingExpenseRequisitionTest {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(1, new AccountingExpense(-2.5));
         assertEquals(-2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void criandoRequisicaoDeDespesaContabilComValorPositivo() {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(1, new AccountingExpense(2.5));
         assertEquals(-2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void alterandoDespesaContabilParaValorNegativoEmRequisicaoDeDespesaContabil() {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(1, new AccountingExpense(2.5));
@@ -72,7 +72,7 @@ public class AccountingExpenseRequisitionTest {
         afr.getItem().setValue(-2.5);
         assertEquals(-2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void alterandoDespesaContabilParaValorPositivoEmRequisicaoDeDespesaContabil() {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(1, new AccountingExpense(-2.5));
@@ -80,7 +80,7 @@ public class AccountingExpenseRequisitionTest {
         afr.getItem().setValue(2.5);
         assertEquals(-2.5, afr.getValue(), 0.0);
     }
-    
+
     @Test
     public void verificaIdependênciaDeRequisicaoDespesaContabilDuplicado() {
         final AccountingExpenseRequisition afr1 = new AccountingExpenseRequisition(1, new AccountingExpense(-2.5));
@@ -94,19 +94,19 @@ public class AccountingExpenseRequisitionTest {
         assertEquals(-2.5, afr1.getItem().getValue(), 0.0);
         assertEquals(-500, afr2.getItem().getValue(), 0.0);
     }
-    
+
     @Test
     public void paraStringRequisicaoDeDespesaContabilPositivo() {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(1, new AccountingExpense(1357.93));
         assertEquals("-1.357,93", afr.toString());
     }
-    
+
     @Test
     public void paraStringRequisicaoDeDespesaContabilNegativo() {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(1, new AccountingExpense(-1357.93));
         assertEquals("-1.357,93", afr.toString());
     }
-    
+
     @Test
     public void mudeParaPositivoQuantidadesNegativas() {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(-5, new AccountingExpense(-1357.93));
@@ -114,7 +114,7 @@ public class AccountingExpenseRequisitionTest {
         afr.setAmount(-7);
         assertEquals(7, afr.getAmount(), 0.0);
     }
-    
+
     @Test
     public void quantidadeInterfereNoValorFinalDaRequisicaoDeDespesaContabil() {
         final AccountingExpenseRequisition afr = new AccountingExpenseRequisition(5, new AccountingExpense(-300.93));
@@ -128,7 +128,7 @@ public class AccountingExpenseRequisitionTest {
         assertEquals(-601.86, afr.getValue(), 0.00);
         assertEquals("-601,86", afr.toString());
     }
-    
+
     @Test
     public void compareNotNullWithNotNull() {
         final AccountingExpenseRequisition afr1 = new AccountingExpenseRequisition(5, new AccountingExpense(-300.93));
@@ -180,4 +180,3 @@ public class AccountingExpenseRequisitionTest {
         assertEquals(1, afr.compareTo(null));
     }
 }
-

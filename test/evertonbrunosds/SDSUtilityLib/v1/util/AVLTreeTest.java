@@ -349,12 +349,12 @@ public class AVLTreeTest {
 
     @Test
     public void alterarChaveDeEntradaDeAVLAposInserirChaveDiferenteTratadaComoIgualPeloComparador() {
-        final AVLTree<String,Integer> avlString;
+        final AVLTree<String, Integer> avlString;
         avlString = new AVLTree<>((final String v1, final String v2) -> v1.toLowerCase().compareTo(v2.toLowerCase()));
         avlString.put("SDS", 123);
         avlString.put("SBS", 321);
         avlString.setKey("SDS", "sds");
-        final Iterator<Entry<String,Integer>> iterator = avlString.iterator();
+        final Iterator<Entry<String, Integer>> iterator = avlString.iterator();
         assertSame("SBS", iterator.next().getKey());
         assertSame("sds", iterator.next().getKey());
         assertNull(iterator.next());
@@ -416,7 +416,7 @@ public class AVLTreeTest {
         avl.loadFromFile(fileName);
         assertTrue(avl.isEmpty());
     }
-    
+
     @Test
     public void carregarDeArquivoInexistenteEmAVL() {
         try {
@@ -428,105 +428,105 @@ public class AVLTreeTest {
             fail();
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesCrescentes() {
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             avl.put(i, "A");
         }
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             assertTrue(avl.containsKey(i));
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesDecrescentes() {
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             avl.put(i, "A");
         }
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             assertTrue(avl.containsKey(i));
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesCrescentesSemComparadorNaConstrução() {
         avl = new AVLTree<>();
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             avl.put(i, "A");
         }
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             assertTrue(avl.containsKey(i));
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLAposInserçõesDecrescentesSemComparadorNaConstrução() {
         avl = new AVLTree<>();
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             avl.put(i, "A");
         }
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             assertTrue(avl.containsKey(i));
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesCrescentes() {
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             avl.put(i, "A");
         }
         final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             assertTrue(avlDuplicated.containsKey(i));
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesDecrescentes() {
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             avl.put(i, "A");
         }
         final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             assertTrue(avlDuplicated.containsKey(i));
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesCrescentesSemComparadorNaConstrução() {
         avl = new AVLTree<>();
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             avl.put(i, "A");
         }
         final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             assertTrue(avlDuplicated.containsKey(i));
         }
     }
-    
+
     @Test
     public void verificarExistênciaDeChaveEmAVLDuplicataAposInserçõesDecrescentesSemComparadorNaConstrução() {
         avl = new AVLTree<>();
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             avl.put(i, "A");
         }
         final AVLTree<Integer, String> avlDuplicated = avl.duplicate();
-        for(int i = 1000; i > 0; i--) {
+        for (int i = 1000; i > 0; i--) {
             assertTrue(avlDuplicated.containsKey(i));
         }
     }
 
     @Test
     public void verificarInexistênciaDeChaveEmAVLAposRemoções() {
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             avl.put(i, fileName);
         }
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             assertTrue(avl.containsKey(i));
             avl.remove(i);
             assertFalse(avl.containsKey(i));
-            for(int j = i+1; j < 100; j++) {
+            for (int j = i + 1; j < 100; j++) {
                 assertTrue(avl.containsKey(j));
             }
         }
@@ -534,7 +534,7 @@ public class AVLTreeTest {
 
     @Test
     public void forInReverso() {
-        for(int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= 100; i++) {
             avl.put(i, "");
         }
         avl.setReverseIterations(true);
@@ -547,7 +547,7 @@ public class AVLTreeTest {
 
     @Test
     public void forEachReverso() {
-        for(int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= 100; i++) {
             avl.put(i, "");
         }
         avl.setReverseIterations(true);
@@ -560,13 +560,13 @@ public class AVLTreeTest {
 
     @Test
     public void iteratorReverso() {
-        for(int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= 100; i++) {
             avl.put(i, "");
         }
         avl.setReverseIterations(true);
         globalCounter = 100;
-        final Iterator<Entry<Integer,String>> iterator = avl.iterator();
-        while(iterator.hasNext()) {
+        final Iterator<Entry<Integer, String>> iterator = avl.iterator();
+        while (iterator.hasNext()) {
             assertSame(globalCounter, iterator.next().getKey());
             globalCounter--;
         }

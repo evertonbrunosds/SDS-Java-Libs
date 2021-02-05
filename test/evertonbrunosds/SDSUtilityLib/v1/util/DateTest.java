@@ -35,26 +35,26 @@ import static org.junit.Assert.*;
  * @since 1.0
  */
 public class DateTest {
-    
+
     public DateTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void makeCurrentDate() {
         final Date date = new Date();
@@ -65,16 +65,16 @@ public class DateTest {
 
     @Test
     public void makeDate() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
         assertEquals("01/02/2020", date.toString());
     }
-    
+
     @Test
     public void setDay() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
@@ -85,10 +85,10 @@ public class DateTest {
         assertEquals(2020, date.getYear());
         assertEquals("05/02/2020", date.toString());
     }
-    
+
     @Test
     public void setMonth() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
@@ -99,10 +99,10 @@ public class DateTest {
         assertEquals(2020, date.getYear());
         assertEquals("01/10/2020", date.toString());
     }
-    
+
     @Test
     public void setYear() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
@@ -113,10 +113,10 @@ public class DateTest {
         assertEquals(1997, date.getYear());
         assertEquals("01/02/1997", date.toString());
     }
-    
+
     @Test
     public void set() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
@@ -127,21 +127,21 @@ public class DateTest {
         assertEquals(2010, date.getYear());
         assertEquals("18/12/2010", date.toString());
     }
-    
+
     @Test
     public void makeInvalidDate() {
         try {
-            final Date date = new Date(30,2,2020);
+            final Date date = new Date(30, 2, 2020);
             fail();
         } catch (final InvalidDateException ex) {
             assertEquals("Invalid date.", ex.getMessage());
             assertEquals("30/02/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void setInvalidDay() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
@@ -154,10 +154,10 @@ public class DateTest {
             assertEquals("32/02/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void setInvalidMonth() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
@@ -170,23 +170,23 @@ public class DateTest {
             assertEquals("01/13/2020", ex.getDate());
         }
     }
-    
+
     @Test
     public void setInvalid() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         assertEquals(1, date.getDay());
         assertEquals(2, date.getMonth());
         assertEquals(2020, date.getYear());
         assertEquals("01/02/2020", date.toString());
         try {
-            date.set(32,16,2021);
+            date.set(32, 16, 2021);
             fail();
         } catch (final InvalidDateException ex) {
             assertEquals("Invalid date.", ex.getMessage());
             assertEquals("32/16/2021", ex.getDate());
         }
         try {
-            date.set(07,14,2019);
+            date.set(07, 14, 2019);
             fail();
         } catch (final InvalidDateException ex) {
             assertEquals("Invalid date.", ex.getMessage());
@@ -197,10 +197,10 @@ public class DateTest {
         assertEquals(2020, date.getYear());
         assertEquals("01/02/2020", date.toString());
     }
-    
+
     @Test
     public void duplicate() throws InvalidDateException {
-        final Date date = new Date(1,2,2020);
+        final Date date = new Date(1, 2, 2020);
         final Date date2 = date.duplicate();
         date2.set(5, 10, 2010);
         assertEquals(1, date.getDay());
@@ -212,10 +212,10 @@ public class DateTest {
         assertEquals(2010, date2.getYear());
         assertEquals("05/10/2010", date2.toString());
     }
-    
+
     @Test
     public void compareNotNullWithNotNull() throws InvalidDateException {
-        final Date d1 = new Date(1,2,2020);
+        final Date d1 = new Date(1, 2, 2020);
         final Date d2 = d1.duplicate();
         assertEquals(0, Date.compare(d1, d2));
         d1.setDay(2);
@@ -223,27 +223,27 @@ public class DateTest {
         d2.setDay(3);
         assertEquals(-1, Date.compare(d1, d2));
     }
-    
+
     @Test
     public void compareNullWithNull() throws InvalidDateException {
         assertEquals(0, Date.compare(null, null));
     }
-    
+
     @Test
     public void compareNotNullWithNull() throws InvalidDateException {
-        final Date d1 = new Date(1,2,2020);
+        final Date d1 = new Date(1, 2, 2020);
         assertEquals(1, Date.compare(d1, null));
     }
-    
+
     @Test
     public void compareNullWithNotNull() throws InvalidDateException {
-        final Date d1 = new Date(1,2,2020);
+        final Date d1 = new Date(1, 2, 2020);
         assertEquals(-1, Date.compare(null, d1));
     }
-    
+
     @Test
     public void compareTo() throws InvalidDateException {
-        final Date d1 = new Date(1,2,2020);
+        final Date d1 = new Date(1, 2, 2020);
         final Date d2 = d1.duplicate();
         assertEquals(0, d1.compareTo(d2));
         d1.setDay(2);
@@ -251,11 +251,11 @@ public class DateTest {
         d2.setDay(3);
         assertEquals(-1, d1.compareTo(d2));
     }
-    
+
     @Test
     public void compareToNull() throws InvalidDateException {
-        final Date d1 = new Date(1,2,2020);
+        final Date d1 = new Date(1, 2, 2020);
         assertEquals(1, d1.compareTo(null));
     }
-    
+
 }

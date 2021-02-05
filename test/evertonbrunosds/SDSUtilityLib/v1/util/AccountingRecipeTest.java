@@ -34,23 +34,23 @@ import static org.junit.Assert.*;
  */
 public class AccountingRecipeTest {
     private AccountingFlow accountingRecipe;
-    
+
     public AccountingRecipeTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         accountingRecipe = null;
     }
-    
+
     @After
     public void tearDown() {
     }

@@ -90,7 +90,7 @@ public class ConverterTest {
     public void integerValueToPositive() {
         assertEquals(22, Converter.Integer.toPositive(-22));
     }
-    
+
     @Test
     public void integerValueToNegative() {
         assertEquals(-22, Converter.Integer.toNegative(22));
@@ -123,7 +123,7 @@ public class ConverterTest {
         assertEquals("22,50", Converter.Double.toString(22.50));
         assertEquals("-22,50", Converter.Double.toString(-22.50));
     }
-    
+
     @Test
     public void doubleValueToFormatedString() {
         assertEquals("1.022,50", Converter.Double.toString(1022.50));
