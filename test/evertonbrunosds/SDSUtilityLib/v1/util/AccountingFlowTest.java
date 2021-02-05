@@ -104,22 +104,30 @@ public class AccountingFlowTest {
 
     @Test
     public void compareNotNullWithNotNull() {
-        fail();
+        final AccountingFlow af1 = new AccountingFlow(0);
+        final AccountingFlow af2 = af1.duplicate();
+        assertEquals(0, AccountingFlow.compare(af1, af2));
+        af1.setValue(1);
+        assertEquals(1, AccountingFlow.compare(af1, af2));
+        af2.setValue(2);
+        assertEquals(-1, AccountingFlow.compare(af1, af2));
     }
 
     @Test
     public void compareNullWithNull() {
-        fail();
+        assertEquals(0, AccountingFlow.compare(null, null));
     }
 
     @Test
     public void compareNotNullWithNull() {
-        fail();
+        final AccountingFlow af1 = new AccountingFlow(0);
+        assertEquals(1, AccountingFlow.compare(af1, null));
     }
 
     @Test
     public void compareNullWithNotNull() {
-        fail();
+        final AccountingFlow af1 = new AccountingFlow(0);
+        assertEquals(-1, AccountingFlow.compare(null, af1));
     }
 
     @Test
@@ -133,7 +141,8 @@ public class AccountingFlowTest {
 
     @Test
     public void compareToNull() {
-        fail();
+        final AccountingFlow af1 = new AccountingFlow(1);
+        assertEquals(1, af1.compareTo(null));
     }
 
 }

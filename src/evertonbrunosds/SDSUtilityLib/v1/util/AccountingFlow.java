@@ -98,7 +98,11 @@ public class AccountingFlow implements Duplicable<AccountingFlow>, Comparable<Ac
      * @return Retorna o resultado da comparação.
      */
     public static int compare(final AccountingFlow x, final AccountingFlow y) {
-        return Double.compare(x.value, y.value);
+        if (x != null && y != null) {
+            return Double.compare(x.value, y.value);
+        } else {
+            return x != null && y == null ? 1 : x == null && y != null ? -1 : 0;
+        }
     }
 
 }
