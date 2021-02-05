@@ -25,6 +25,37 @@ package evertonbrunosds.SDSUtilityLib.v1.util;
  * @version 1.0
  * @since 1.0
  */
-public class AccountingExpenseRequisition {
-    
+public class AccountingExpenseRequisition extends AccountingFlowRequisition {
+    /**
+     * Refere-se ao número de série da requisição de despesa contábil.
+     */
+    private static final long serialVersionUID = 6775677341908526653L;
+
+    /**
+     * Construtor responsável pelo instanciamento da requisição de despesa contábil.
+     * @param amount Refere-se a quantidade em que a despesa contábil se apresenta.
+     * @param item   Refere-se a despesa contábil.
+     */
+    public AccountingExpenseRequisition(final double amount, final AccountingExpense item) {
+        super(amount, item);
+    }
+
+    /**
+     * Método responsável por duplicar a requisição de despesa contábil.
+     * @return Retorna requisição de despesa contábil duplicata.
+     */
+    @Override
+    public AccountingExpenseRequisition duplicate() {
+        return (AccountingExpenseRequisition) super.duplicate();
+    }
+
+    /**
+     * Método responsável por retornar a despesa contábil.
+     * @return Retorna a despesa contábil.
+     */
+    @Override
+    public AccountingExpense getItem() {
+        return (AccountingExpense) super.getItem();
+    }
+
 }

@@ -25,6 +25,37 @@ package evertonbrunosds.SDSUtilityLib.v1.util;
  * @version 1.0
  * @since 1.0
  */
-public class AccountingRecipeRequisition {
-    
+public class AccountingRecipeRequisition extends AccountingFlowRequisition {
+    /**
+     * Refere-se ao número de série da requisição de receita contábil.
+     */
+    private static final long serialVersionUID = -3635789802474637479L;
+
+    /**
+     * Construtor responsável pelo instanciamento da requisição de receita contábil.
+     * @param amount Refere-se a quantidade em que a receita contábil se apresenta.
+     * @param item   Refere-se a receita contábil.
+     */
+    public AccountingRecipeRequisition(final double amount, final AccountingRecipe item) {
+        super(amount, item);
+    }
+
+    /**
+     * Método responsável por duplicar a requisição de receita contábil.
+     * @return Retorna requisição de receita contábil duplicata.
+     */
+    @Override
+    public AccountingRecipeRequisition duplicate() {
+        return (AccountingRecipeRequisition) super.duplicate();
+    }
+
+    /**
+     * Método responsável por retornar a receita contábil.
+     * @return Retorna a receita contábil.
+     */
+    @Override
+    public AccountingRecipe getItem() {
+        return (AccountingRecipe) super.getItem();
+    }
+
 }
