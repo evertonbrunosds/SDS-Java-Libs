@@ -53,20 +53,20 @@ public class AccountingRecipeRequisitionTest {
     public void tearDown() {
     }
 
-@Test
-    public void criandoRequisicaoDeFluxoContabilComValorNegativo() {
+    @Test
+    public void criandoRequisicaoDeReceitaContabilComValorNegativo() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(-2.5));
         assertEquals(2.5, afr.getValue(), 0.0);
     }
     
     @Test
-    public void criandoRequisicaoDeFluxoContabilComValorPositivo() {
+    public void criandoRequisicaoDeReceitaContabilComValorPositivo() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(2.5));
         assertEquals(2.5, afr.getValue(), 0.0);
     }
     
     @Test
-    public void alterandoFluxoContabilParaValorNegativoEmRequisicaoDeFluxoContabil() {
+    public void alterandoReceitaContabilParaValorNegativoEmRequisicaoDeReceitaContabil() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(2.5));
         assertEquals(2.5, afr.getValue(), 0.0);
         afr.getItem().setValue(-2.5);
@@ -74,7 +74,7 @@ public class AccountingRecipeRequisitionTest {
     }
     
     @Test
-    public void alterandoFluxoContabilParaValorPositivoEmRequisicaoDeFluxoContabil() {
+    public void alterandoReceitaContabilParaValorPositivoEmRequisicaoDeReceitaContabil() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(-2.5));
         assertEquals(2.5, afr.getValue(), 0.0);
         afr.getItem().setValue(2.5);
@@ -82,7 +82,7 @@ public class AccountingRecipeRequisitionTest {
     }
     
     @Test
-    public void verificaIdependênciaDeRequisicaoFluxoContabilDuplicado() {
+    public void verificaIdependênciaDeRequisicaoReceitaContabilDuplicado() {
         final AccountingRecipeRequisition afr1 = new AccountingRecipeRequisition(1, new AccountingRecipe(-2.5));
         final AccountingRecipeRequisition afr2 = afr1.duplicate();
         afr2.getItem().setValue(500);
@@ -96,13 +96,13 @@ public class AccountingRecipeRequisitionTest {
     }
     
     @Test
-    public void paraStringRequisicaoDeFluxoContabilPositivo() {
+    public void paraStringRequisicaoDeReceitaContabilPositivo() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(1357.93));
         assertEquals("1.357,93", afr.toString());
     }
     
     @Test
-    public void paraStringRequisicaoDeFluxoContabilNegativo() {
+    public void paraStringRequisicaoDeReceitaContabilNegativo() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(1, new AccountingRecipe(-1357.93));
         assertEquals("1.357,93", afr.toString());
     }
@@ -116,7 +116,7 @@ public class AccountingRecipeRequisitionTest {
     }
     
     @Test
-    public void quantidadeInterfereNoValorFinalDaRequisicaoDeFluxoContabil() {
+    public void quantidadeInterfereNoValorFinalDaRequisicaoDeReceitaContabil() {
         final AccountingRecipeRequisition afr = new AccountingRecipeRequisition(5, new AccountingRecipe(-300.93));
         assertEquals(5, afr.getAmount(), 0.00);
         assertEquals(300.93, afr.getItem().getValue(), 0.00);
