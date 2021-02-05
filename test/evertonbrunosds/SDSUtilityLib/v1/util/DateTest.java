@@ -29,8 +29,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author evertonbrunosds
+ * Classe responsável por efetuar testes na data.
+ * @author Everton Bruno Silva dos Santos.
+ * @version 1.0
+ * @since 1.0
  */
 public class DateTest {
     
