@@ -19,13 +19,15 @@
  */
 package evertonbrunosds.SDSUtilityLib.v1.util;
 
+import evertonbrunosds.SDSUtilityLib.v1.api.Converter;
+
 /**
  * Classe responsável por comportar-se como requisição de despesa contábil.
  * @author Everton Bruno Silva dos Santos.
  * @version 1.0
  * @since 1.0
  */
-public class AccountingExpenseRequisition extends AccountingFlowRequisition {
+public class AccountingExpenseRequisition extends AbstractRequest<AccountingExpense> {
     /**
      * Refere-se ao número de série da requisição de despesa contábil.
      */
@@ -37,7 +39,25 @@ public class AccountingExpenseRequisition extends AccountingFlowRequisition {
      * @param item   Refere-se a despesa contábil.
      */
     public AccountingExpenseRequisition(final double amount, final AccountingExpense item) {
-        super(amount, item);
+        super(Converter.Double.toPositive(amount), item);
+    }
+
+    /**
+     * Método responsável por alterar a quantidade da requisição de despesa contábil.
+     * @param amount Refere-se a quantidade da requisição de despesa contábil.
+     */
+    @Override
+    public void setAmount(final double amount) {
+        super.setAmount(Converter.Double.toPositive(amount));
+    }
+
+    /**
+     * Método responsável por retornar o valor da requisição de despesa contábil.
+     * @return Retorna o valor da requisição de despesa contábil.
+     */
+    @Override
+    public double getValue() {
+        return getItem() == null ? 0 : getAmount() * getItem().getValue();
     }
 
     /**
@@ -46,16 +66,36 @@ public class AccountingExpenseRequisition extends AccountingFlowRequisition {
      */
     @Override
     public AccountingExpenseRequisition duplicate() {
-        return (AccountingExpenseRequisition) super.duplicate();
+        if (getItem() == null) {
+            return new AccountingExpenseRequisition(getAmount(), null);
+        } else {
+            return new AccountingExpenseRequisition(getAmount(), getItem().duplicate());
+        }
     }
 
     /**
-     * Método responsável por retornar a despesa contábil.
-     * @return Retorna a despesa contábil.
+     * Método responsável por efetuar comparações entre duas requisições de despesa contábil.
+     * @param x Refere-se a primeira despesa contábil.
+     * @param y Refere-se a segunda despesa contábil.
+     * @return Retorna o resultado da comparação.
+     */
+    public static int compare(final AbstractRequest<AccountingExpense> x, final AbstractRequest<AccountingExpense> y) {
+        if (x != null && y != null) {
+            final int result = AccountingExpense.compare(x.getItem(), y.getItem());
+            return result != 0 ? result : Double.compare(x.getAmount(), y.getAmount());
+        } else {
+            return x != null && y == null ? 1 : x == null && y != null ? -1 : 0;
+        }
+    }
+
+    /**
+     * Método responsável por efetuar comparação de uma requisição de despesa contábil com outra.
+     * @param ar Refere-se a requisição de despesa contábil a ser comparada.
+     * @return Retorna resultado da comparação.
      */
     @Override
-    public AccountingExpense getItem() {
-        return (AccountingExpense) super.getItem();
+    public int compareTo(final AbstractRequest<AccountingExpense> ar) {
+        return compare(this, ar);
     }
 
 }
