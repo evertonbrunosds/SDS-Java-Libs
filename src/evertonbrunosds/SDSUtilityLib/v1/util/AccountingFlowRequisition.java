@@ -81,7 +81,8 @@ public class AccountingFlowRequisition extends AbstractRequest<AccountingFlow> {
      */
     public static int compare(final AbstractRequest<AccountingFlow> x, final AbstractRequest<AccountingFlow> y) {
         if (x != null && y != null) {
-            return AccountingFlow.compare(x.getItem(), y.getItem());
+            final int result = AccountingFlow.compare(x.getItem(), y.getItem());
+            return result != 0 ? result : Double.compare(x.getAmount(), y.getAmount());
         } else {
             return x != null && y == null ? 1 : x == null && y != null ? -1 : 0;
         }

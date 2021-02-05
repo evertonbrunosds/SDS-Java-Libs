@@ -53,5 +53,131 @@ public class AccountingFlowRequisitionTest {
     public void tearDown() {
     }
 
+    @Test
+    public void criandoRequisicaoDeFluxoContabilComValorNegativo() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(-2.5));
+        assertEquals(-2.5, afr.getValue(), 0.0);
+    }
     
+    @Test
+    public void criandoRequisicaoDeFluxoContabilComValorPositivo() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(2.5));
+        assertEquals(2.5, afr.getValue(), 0.0);
+    }
+    
+    @Test
+    public void alterandoFluxoContabilParaValorNegativoEmRequisicaoDeFluxoContabil() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(2.5));
+        assertEquals(2.5, afr.getValue(), 0.0);
+        afr.getItem().setValue(-2.5);
+        assertEquals(-2.5, afr.getValue(), 0.0);
+    }
+    
+    @Test
+    public void alterandoFluxoContabilParaValorPositivoEmRequisicaoDeFluxoContabil() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(-2.5));
+        assertEquals(-2.5, afr.getValue(), 0.0);
+        afr.getItem().setValue(2.5);
+        assertEquals(2.5, afr.getValue(), 0.0);
+    }
+    
+    @Test
+    public void verificaIdependênciaDeRequisicaoFluxoContabilDuplicado() {
+        final AccountingFlowRequisition afr1 = new AccountingFlowRequisition(1, new AccountingFlow(-2.5));
+        final AccountingFlowRequisition afr2 = afr1.duplicate();
+        afr2.getItem().setValue(500);
+        afr2.setAmount(0);
+        assertEquals(1, afr1.getAmount(), 0.0);
+        assertEquals(0, afr2.getAmount(), 0.0);
+        assertEquals(-2.5, afr1.getValue(), 0.0);
+        assertEquals(0, afr2.getValue(), 0.0);
+        assertEquals(-2.5, afr1.getItem().getValue(), 0.0);
+        assertEquals(500, afr2.getItem().getValue(), 0.0);
+    }
+    
+    @Test
+    public void paraStringRequisicaoDeFluxoContabilPositivo() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(1357.93));
+        assertEquals("1.357,93", afr.toString());
+    }
+    
+    @Test
+    public void paraStringRequisicaoDeFluxoContabilNegativo() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(1, new AccountingFlow(-1357.93));
+        assertEquals("-1.357,93", afr.toString());
+    }
+    
+    @Test
+    public void mudeParaPositivoQuantidadesNegativas() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(-5, new AccountingFlow(-1357.93));
+        assertEquals(5, afr.getAmount(), 0.0);
+        afr.setAmount(-7);
+        assertEquals(7, afr.getAmount(), 0.0);
+    }
+    
+    @Test
+    public void quantidadeInterfereNoValorFinalDaRequisicaoDeFluxoContabil() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(5, new AccountingFlow(-300.93));
+        assertEquals(5, afr.getAmount(), 0.00);
+        assertEquals(-300.93, afr.getItem().getValue(), 0.00);
+        assertEquals(-1504.65, afr.getValue(), 0.00);
+        assertEquals("-1.504,65", afr.toString());
+        afr.setAmount(2);
+        assertEquals(2, afr.getAmount(), 0.00);
+        assertEquals(-300.93, afr.getItem().getValue(), 0.00);
+        assertEquals(-601.86, afr.getValue(), 0.00);
+        assertEquals("-601,86", afr.toString());
+        
+    }
+    
+    @Test
+    public void compareNotNullWithNotNull() {
+        final AccountingFlowRequisition afr1 = new AccountingFlowRequisition(5, new AccountingFlow(-300.93));
+        final AccountingFlowRequisition afr2 = afr1.duplicate();
+        assertEquals(0, AccountingFlowRequisition.compare(afr1, afr2));
+        afr1.setAmount(7);
+        assertEquals(1, AccountingFlowRequisition.compare(afr1, afr2));
+        afr2.setAmount(10);
+        assertEquals(-1, AccountingFlowRequisition.compare(afr1, afr2));
+    }
+
+    @Test
+    public void compareNullWithNull() {
+        assertEquals(0, AccountingFlowRequisition.compare(null, null));
+    }
+
+    @Test
+    public void compareNotNullWithNull() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(5, new AccountingFlow(-300.93));
+        assertEquals(1, AccountingFlowRequisition.compare(afr, null));
+    }
+
+    @Test
+    public void compareNullWithNotNull() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(5, new AccountingFlow(-300.93));
+        assertEquals(-1, AccountingFlowRequisition.compare(null, afr));
+    }
+
+    @Test
+    public void compareToNotNull() {
+        final AccountingFlowRequisition afr1 = new AccountingFlowRequisition(2, new AccountingFlow(3));
+        AccountingFlowRequisition afr2 = afr1.duplicate();
+        assertEquals(0, afr1.compareTo(afr2));
+        afr1.setAmount(5);
+        assertEquals(1, afr1.compareTo(afr2));
+        afr2.setAmount(10);
+        assertEquals(-1, afr1.compareTo(afr2));
+        afr2 = afr1.duplicate();
+        assertEquals(0, afr1.compareTo(afr2));
+        afr1.getItem().setValue(5);
+        assertEquals(1, afr1.compareTo(afr2));
+        afr2.getItem().setValue(7);
+        assertEquals(-1, afr1.compareTo(afr2));
+    }
+
+    @Test
+    public void compareToNull() {
+        final AccountingFlowRequisition afr = new AccountingFlowRequisition(5, new AccountingFlow(-300.93));
+        assertEquals(1, afr.compareTo(null));
+    }
 }
